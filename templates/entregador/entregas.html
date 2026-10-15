@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block titulo %}Minhas entregas - BigBite{% endblock %}
+
+{% block conteudo %}
+<h2 class="mb-3">Minhas entregas</h2>
+
+<h4 class="mt-4">
+  A caminho
+  <span class="badge bg-secondary">{{ a_caminho|length }}</span>
+</h4>
+{% for pedido in a_caminho %}
+  {% include 'entregador/_cartao_entrega.html' %}
+{% empty %}
+  <p class="text-muted">Nenhuma entrega a caminho.</p>
+{% endfor %}
+
+<h4 class="mt-4">
+  No destino
+  <span class="badge bg-warning text-dark">{{ no_destino|length }}</span>
+</h4>
+{% for pedido in no_destino %}
+  {% include 'entregador/_cartao_entrega.html' %}
+{% empty %}
+  <p class="text-muted">Nenhuma entrega aguardando confirmação.</p>
+{% endfor %}
+
+<h4 class="mt-4">
+  Entregues hoje
+  <span class="badge bg-success">{{ entregues_hoje|length }}</span>
+</h4>
+{% for pedido in entregues_hoje %}
+  <div class="d-flex justify-content-between border-bottom py-2 small">
+    <span>Pedido #{{ pedido.pk }} · {{ pedido.endereco_entrega }}</span>
+    <span class="text-muted">{{ pedido.atualizado_em|date:"H:i" }}</span>
+  </div>
+{% empty %}
+  <p class="text-muted">Nenhuma entrega concluída hoje.</p>
+{% endfor %}
+{% endblock %}
+{% block scripts %}
+<script>
+  // Recarrega a cada 30s, mas não enquanto você estiver mexendo num campo
+  setInterval(function () {
+    var el = document.activeElement;
+    if (el && ['SELECT', 'INPUT', 'TEXTAREA'].includes(el.tagName)) return;
+    location.reload();
+  }, 30000);
+</script>
+{% endblock %}

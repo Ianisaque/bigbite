@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block titulo %}Pedido #{{ pedido.pk }} - BigBite{% endblock %}
+
+{% block conteudo %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Pedido #{{ pedido.pk }}</h2>
+  <span class="badge bg-warning text-dark fs-6">{{ pedido.get_status_display }}</span>
+</div>
+
+<p class="text-muted">
+  Feito em {{ pedido.criado_em|date:"d/m/Y H:i" }} ·
+  Pagamento: {{ pedido.get_forma_pagamento_display }}
+</p>
+<p><strong>Entrega em:</strong> {{ pedido.endereco_entrega }}</p>
+
+<div class="card card-produto">
+  <div class="card-body">
+    {% for item in pedido.itens.all %}
+      <div class="d-flex justify-content-between">
+        <span>{{ item.quantidade }}x {{ item.produto.nome }}</span>
+        <span>R$ {{ item.subtotal }}</span>
+      </div>
+    {% endfor %}
+    <hr>
+    <div class="d-flex justify-content-between"><span>Subtotal</span><span>R$ {{ pedido.subtotal }}</span></div>
+    {% if pedido.desconto %}
+      <div class="d-flex justify-content-between text-success"><span>Desconto fidelidade (20%)</span><span>- R$ {{ pedido.desconto }}</span></div>
+    {% endif %}
+    <div class="d-flex justify-content-between"><span>Taxa de entrega</span><span>R$ {{ pedido.taxa_entrega }}</span></div>
+    <hr>
+    <div class="d-flex justify-content-between fw-bold"><span>Total</span><span>R$ {{ pedido.total }}</span></div>
+  </div>
+</div>
+
+<a href="{% url 'historico' %}" class="btn btn-outline-laranja mt-3">Voltar ao histórico</a>
+{% endblock %}

@@ -1,0 +1,85 @@
+:root {
+  --laranja: #ff8a1f;
+  --laranja-escuro: #f26a00;
+}
+
+/* Fundo escuro com manchas de luz (é isso que o vidro vai embaçar) */
+body {
+  min-height: 100vh;
+  color: #f5f5f5;
+  background-color: #14100d;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 138, 31, .35), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(220, 53, 69, .25), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(255, 138, 31, .20), transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Barra de navegação em vidro (opcional) */
+.navbar-glass {
+  background: rgba(20, 16, 13, .55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* Card de produto em vidro */
+.card.card-produto {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.card.card-produto:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 138, 31, .6);
+}
+
+.card-produto .card-img-top {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.preco-produto {
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Botões laranja */
+.btn-laranja {
+  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  border: 0;
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.btn-laranja:hover {
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+.btn-outline-laranja {
+  border: 1px solid var(--laranja);
+  color: var(--laranja);
+  border-radius: 999px;
+}
+
+.btn-outline-laranja:hover {
+  background: var(--laranja);
+  color: #fff;
+}
+
+.nav-pills .nav-link.active {
+  background: var(--laranja-escuro);
+  color: #fff;
+}
+.nav-pills .nav-link {
+  color: #ddd;
+}

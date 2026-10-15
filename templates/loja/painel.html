@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block titulo %}Painel da loja - BigBite{% endblock %}
+
+{% block conteudo %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <h2 class="mb-0">Painel da loja</h2>
+  <ul class="nav nav-pills">
+    {% for chave, rotulo in abas %}
+      <li class="nav-item">
+        <a class="nav-link {% if chave == filtro %}active{% endif %}" href="?status={{ chave }}">{{ rotulo }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% for pedido in pedidos %}
+  <div class="card card-produto mb-3">
+    <div class="card-body">
+
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <div>
+          <h5 class="mb-1">
+            Pedido #{{ pedido.pk }}
+            <span class="badge bg-warning text-dark ms-2">{{ pedido.get_status_display }}</span>
+          </h5>
+          <small class="text-muted">
+            {{ pedido.criado_em|date:"d/m/Y H:i" }} · {{ pedido.cliente.nome }}
+            {% if pedido.cliente.telefone %}· {{ pedido.cliente.telefone }}{% endif %}
+          </small>
+        </div>
+        <strong class="preco-produto">R$ {{ pedido.total }}</strong>
+      </div>
+
+      <hr>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <ul class="list-unstyled mb-0">
+            {% for item in pedido.itens.all %}
+              <li>{{ item.quantidade }}x {{ item.produto.nome }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-6 small">
+          <div><strong>Endereço:</strong> {{ pedido.endereco_entrega }}</div>
+          <div><strong>Pagamento:</strong> {{ pedido.get_forma_pagamento_display }}</div>
+          <div>
+            <strong>Entregador:</strong>
+            {% if pedido.entregador %}{{ pedido.entregador.nome }}{% else %}<span class="text-warning">não definido</span>{% endif %}
+          </div>
+          {% if pedido.fidelidade_aplicada %}
+            <div class="text-success">Desconto de fidelidade aplicado</div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if pedido.status != 'finalizado' and pedido.status != 'cancelado' %}
+        <hr>
+        <div class="d-flex flex-wrap gap-3 align-items-center">
+
+          {% if pedido.acao_loja %}
+            <form method="post" action="{% url 'painel_avancar' pedido.pk %}" class="d-flex flex-wrap gap-2">
+              {% csrf_token %}
+              <input type="hidden" name="de" value="{{ pedido.status }}">
+              {% if pedido.status == 'preparo' %}
+                <select name="entregador" class="form-select form-select-sm w-auto" required>
+                  <option value="">Escolha o entregador</option>
+                  {% for e in entregadores %}
+                    <option value="{{ e.pk }}" {% if e == pedido.entregador %}selected{% endif %}>{{ e.nome }}</option>
+                  {% endfor %}
+                </select>
+              {% endif %}
+              <button type="submit" class="btn btn-laranja btn-sm px-3">{{ pedido.rotulo_acao }}</button>
+            </form>
+          {% endif %}
+
+          {% if pedido.status == 'saiu' %}
+            <form method="post" action="{% url 'painel_entregador' pedido.pk %}" class="d-flex flex-wrap gap-2">
+              {% csrf_token %}
+              <select name="entregador" class="form-select form-select-sm w-auto" required>
+                <option value="">Trocar entregador</option>
+                {% for e in entregadores %}
+                  <option value="{{ e.pk }}" {% if e == pedido.entregador %}selected{% endif %}>{{ e.nome }}</option>
+                {% endfor %}
+              </select>
+              <button type="submit" class="btn btn-outline-laranja btn-sm">Definir</button>
+            </form>
+          {% endif %}
+
+          {% if pedido.status == 'saiu' or pedido.status == 'chegou' %}
+            <span class="text-muted small">
+              {% if pedido.status == 'saiu' %}Em rota. O entregador avisa quando chegar.{% else %}No destino. Aguardando o entregador confirmar a entrega.{% endif %}
+            </span>
+          {% endif %}
+
+          {% if pedido.pode_cancelar %}
+            <form method="post" action="{% url 'painel_cancelar' pedido.pk %}" class="ms-auto">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-danger btn-sm"
+                      onclick="return confirm('Cancelar o pedido #{{ pedido.pk }}?')">Cancelar pedido</button>
+            </form>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+{% empty %}
+  <p class="text-muted">Nenhum pedido por aqui.</p>
+{% endfor %}
+{% endblock %}
+{% block scripts %}
+<script>
+  // Recarrega a cada 30s, mas não enquanto você estiver mexendo num campo
+  setInterval(function () {
+    var el = document.activeElement;
+    if (el && ['SELECT', 'INPUT', 'TEXTAREA'].includes(el.tagName)) return;
+    location.reload();
+  }, 30000);
+</script>
+{% endblock %}

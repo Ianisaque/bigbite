@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block titulo %}Finalizar pedido - BigBite{% endblock %}
+
+{% block conteudo %}
+<h2 class="mb-3">Finalizar pedido</h2>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_div }}
+      <button type="submit" class="btn btn-laranja w-100 mt-3 py-2">Confirmar pedido</button>
+    </form>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card card-produto">
+      <div class="card-body">
+        <h5 class="mb-3">Resumo</h5>
+        {% for item in itens %}
+          <div class="d-flex justify-content-between small">
+            <span>{{ item.quantidade }}x {{ item.produto.nome }}</span>
+            <span>R$ {{ item.subtotal }}</span>
+          </div>
+        {% endfor %}
+        <hr>
+        <div class="d-flex justify-content-between"><span>Subtotal</span><span>R$ {{ subtotal }}</span></div>
+        {% if desconto %}
+          <div class="d-flex justify-content-between text-success"><span>Desconto fidelidade (20%)</span><span>- R$ {{ desconto }}</span></div>
+        {% endif %}
+        <div class="d-flex justify-content-between"><span>Taxa de entrega</span><span>R$ {{ taxa_entrega }}</span></div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold"><span>Total</span><span>R$ {{ total }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

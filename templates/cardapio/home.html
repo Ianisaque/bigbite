@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div class="p-5 mb-4 rounded-3 text-white text-center" style="background: linear-gradient(135deg, #dc3545, #fd7e14);">
+  <h1 class="display-4 fw-bold">BigBite</h1>
+  <p class="lead">O fast-food que chega até você.</p>
+</div>
+
+<div class="alert alert-warning text-center">
+  <h4 class="alert-heading">Programa de fidelidade</h4>
+  <p class="mb-0">Peça 4 vezes e o <strong>5º pedido sai com 20% de desconto</strong>!</p>
+</div>
+
+<h2 class="mt-4">Nossos produtos</h2>
+{% include 'cardapio/_lista_produtos.html' %}
+{% endblock %}

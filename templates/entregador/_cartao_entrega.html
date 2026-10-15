@@ -1,0 +1,36 @@
+<div class="card card-produto mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-between flex-wrap gap-2">
+      <h5 class="mb-0">Pedido #{{ pedido.pk }}</h5>
+      <span class="text-muted small">
+        {{ pedido.cliente.nome }}{% if pedido.cliente.telefone %} · {{ pedido.cliente.telefone }}{% endif %}
+      </span>
+    </div>
+    <hr>
+
+    <p class="mb-2">
+      <strong>Endereço:</strong> {{ pedido.endereco_entrega }}
+      <a href="https://www.google.com/maps/search/?api=1&query={{ pedido.endereco_entrega|urlencode }}"
+         target="_blank" rel="noopener" class="ms-2 small">Abrir no mapa</a>
+    </p>
+
+    <ul class="mb-2">
+      {% for item in pedido.itens.all %}
+        <li>{{ item.quantidade }}x {{ item.produto.nome }}</li>
+      {% endfor %}
+    </ul>
+
+    <p class="mb-0">
+      <strong>Total:</strong> R$ {{ pedido.total }} ·
+      <strong>Pagamento:</strong> {{ pedido.get_forma_pagamento_display }}
+    </p>
+
+    {% if pedido.acao_entregador %}
+      <form method="post" action="{% url 'entrega_avancar' pedido.pk %}" class="mt-3">
+        {% csrf_token %}
+        <input type="hidden" name="de" value="{{ pedido.status }}">
+        <button type="submit" class="btn btn-laranja w-100 py-2">{{ pedido.rotulo_acao_entregador }}</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
