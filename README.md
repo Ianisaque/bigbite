@@ -45,7 +45,7 @@ Python, Django, SQLite, Bootstrap 5 e CSS próprio (visual glassmorphism).
 ## Como rodar
 
 ```bash
-git clone https://github.com/[SEU-USUARIO]/bigbite.git
+git clone https://github.com/Ianisaque/bigbite.git
 cd bigbite
 
 python -m venv venv
