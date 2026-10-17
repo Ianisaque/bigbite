@@ -83,3 +83,40 @@ body {
 .nav-pills .nav-link {
   color: #ddd;
 }
+
+/* ---------- Base visual ---------- */
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text-laranja {
+  color: var(--laranja);
+}
+
+.bg-laranja {
+  background: var(--laranja-escuro);
+  color: #fff;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.navbar .nav-link {
+  transition: color .2s ease;
+}
+
+.navbar .nav-link:hover {
+  color: var(--laranja);
+}
+
+.rodape {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  background: rgba(20, 16, 13, .5);
+}
