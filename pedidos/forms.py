@@ -16,6 +16,7 @@ class CheckoutForm(forms.ModelForm):
         labels = {'endereco_entrega': 'Endereço de entrega'}
         widgets = {
             'endereco_entrega': forms.Textarea(attrs={
+                'class': 'form-control',
                 'rows': 3,
                 'placeholder': 'Rua, número, bairro, complemento',
             }),

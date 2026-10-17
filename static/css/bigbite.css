@@ -3,9 +3,18 @@
   --laranja-escuro: #f26a00;
 }
 
-/* Fundo escuro com manchas de luz (é isso que o vidro vai embaçar) */
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+[id^="categoria-"] {
+  scroll-margin-top: 5rem; /* não fica escondido atrás da navbar fixa */
+}
+
 body {
   min-height: 100vh;
+  font-family: 'Poppins', system-ui, sans-serif;
   color: #f5f5f5;
   background-color: #14100d;
   background-image:
@@ -15,7 +24,21 @@ body {
   background-attachment: fixed;
 }
 
-/* Barra de navegação em vidro (opcional) */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text-laranja {
+  color: var(--laranja);
+}
+
+.bg-laranja {
+  background: var(--laranja-escuro);
+  color: #fff;
+}
+
+/* ---------- Navbar e rodapé ---------- */
 .navbar-glass {
   background: rgba(20, 16, 13, .55);
   backdrop-filter: blur(12px);
@@ -23,35 +46,25 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
-/* Card de produto em vidro */
-.card.card-produto {
-  background: rgba(255, 255, 255, .08);
-  border: 1px solid rgba(255, 255, 255, .15);
-  border-radius: 1.25rem;
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
-  overflow: hidden;
-  transition: transform .2s ease, border-color .2s ease;
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
 }
 
-.card.card-produto:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 138, 31, .6);
+.navbar .nav-link {
+  transition: color .2s ease;
 }
 
-.card-produto .card-img-top {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.preco-produto {
+.navbar .nav-link:hover {
   color: var(--laranja);
-  font-weight: 700;
-  font-size: 1.1rem;
 }
 
-/* Botões laranja */
+.rodape {
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  background: rgba(20, 16, 13, .5);
+}
+
+/* ---------- Botões ---------- */
 .btn-laranja {
   background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
   border: 0;
@@ -76,58 +89,13 @@ body {
   color: #fff;
 }
 
-.nav-pills .nav-link.active {
-  background: var(--laranja-escuro);
-  color: #fff;
-}
 .nav-pills .nav-link {
   color: #ddd;
 }
 
-/* ---------- Base visual ---------- */
-body {
-  font-family: 'Poppins', system-ui, sans-serif;
-}
-
-h1, h2, h3, h4, h5 {
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.text-laranja {
-  color: var(--laranja);
-}
-
-.bg-laranja {
+.nav-pills .nav-link.active {
   background: var(--laranja-escuro);
   color: #fff;
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
-}
-
-.navbar .nav-link {
-  transition: color .2s ease;
-}
-
-.navbar .nav-link:hover {
-  color: var(--laranja);
-}
-
-.rodape {
-  border-top: 1px solid rgba(255, 255, 255, .08);
-  background: rgba(20, 16, 13, .5);
-}
-
-/* ---------- Rolagem e âncoras ---------- */
-html {
-  scroll-behavior: smooth;
-}
-
-[id^="categoria-"] {
-  scroll-margin-top: 5rem; /* não fica escondido atrás da navbar fixa */
 }
 
 /* ---------- Painel de vidro (reutilizável) ---------- */
@@ -139,6 +107,99 @@ html {
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
   padding: 1.5rem;
+}
+
+/* ---------- Card em vidro ---------- */
+.card.card-produto {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.card.card-produto:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 138, 31, .6);
+}
+
+.preco-produto {
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* ---------- Card de produto: imagem, selo e descrição ---------- */
+.produto-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.produto-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.card-produto:hover .produto-img img {
+  transform: scale(1.08);
+}
+
+.produto-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, .35);
+  background: linear-gradient(135deg, rgba(255, 138, 31, .25), rgba(220, 53, 69, .2));
+}
+
+.selo-destaque {
+  position: absolute;
+  top: .6rem;
+  left: .6rem;
+  padding: .25rem .65rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .35);
+}
+
+.produto-descricao {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}
+
+/* ---------- Chips de categoria ---------- */
+.chip-categoria {
+  padding: .4rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #eee;
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.chip-categoria:hover {
+  background: var(--laranja-escuro);
+  border-color: var(--laranja);
+  color: #fff;
 }
 
 /* ---------- Hero ---------- */
@@ -255,72 +316,185 @@ html {
   letter-spacing: .06em;
 }
 
-/* ---------- Chips de categoria ---------- */
-.chip-categoria {
-  padding: .4rem 1rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .08);
-  border: 1px solid rgba(255, 255, 255, .15);
-  color: #eee;
-  font-size: .9rem;
-  font-weight: 500;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: background .2s ease, border-color .2s ease;
-}
-
-.chip-categoria:hover {
-  background: var(--laranja-escuro);
-  border-color: var(--laranja);
-  color: #fff;
-}
-
-/* ---------- Card de produto: imagem, selo e descrição ---------- */
-.produto-img {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-}
-
-.produto-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .4s ease;
-}
-
-.card-produto:hover .produto-img img {
-  transform: scale(1.08);
-}
-
-.produto-placeholder {
+/* ---------- Carrinho ---------- */
+.item-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  font-size: 3rem;
-  color: rgba(255, 255, 255, .35);
+  flex-shrink: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, .4);
   background: linear-gradient(135deg, rgba(255, 138, 31, .25), rgba(220, 53, 69, .2));
 }
 
-.selo-destaque {
-  position: absolute;
-  top: .6rem;
-  left: .6rem;
-  padding: .25rem .65rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
-  color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .35);
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.produto-descricao {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.6em;
+.seletor-qtd {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+}
+
+.btn-qtd {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--laranja-escuro);
+  color: #fff;
+  line-height: 1;
+}
+
+.btn-qtd:disabled {
+  opacity: .35;
+}
+
+.qtd-valor {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.item-subtotal {
+  min-width: 5.5rem;
+  text-align: right;
+}
+
+.btn-remover {
+  border: 0;
+  background: none;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+}
+
+.btn-remover:hover {
+  color: #ff3b3b;
+}
+
+.resumo-fixo {
+  position: sticky;
+  top: 5.5rem;
+}
+
+/* ---------- Checkout: cartões de pagamento ---------- */
+.pagamento-opcao {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pagamento-opcao input {
+  position: absolute;
+  opacity: 0;
+}
+
+.pagamento-card {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .15);
+  font-weight: 500;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.pagamento-card i {
+  font-size: 1.2rem;
+  color: var(--laranja);
+}
+
+.pagamento-opcao:hover .pagamento-card {
+  border-color: rgba(255, 138, 31, .6);
+}
+
+.pagamento-opcao input:checked + .pagamento-card {
+  background: rgba(255, 138, 31, .18);
+  border-color: var(--laranja);
+  box-shadow: 0 0 0 3px rgba(255, 138, 31, .2);
+}
+
+.pagamento-opcao input:focus-visible + .pagamento-card {
+  outline: 2px solid var(--laranja);
+}
+
+/* ---------- Linha do tempo do pedido ---------- */
+.linha-tempo {
+  display: flex;
+  overflow-x: auto;
+  padding: .5rem 0;
+}
+
+.etapa {
+  position: relative;
+  flex: 1 0 5.5rem;
+  text-align: center;
+  font-size: .78rem;
+  color: rgba(255, 255, 255, .5);
+}
+
+.etapa::before {
+  content: '';
+  position: absolute;
+  top: 1.4rem;
+  left: -50%;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, .15);
+}
+
+.etapa:first-child::before {
+  display: none;
+}
+
+.etapa-icone {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0 auto .5rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .2);
+  background: #241b15;
+  font-size: 1.1rem;
+}
+
+.etapa-feito {
+  color: #fff;
+}
+
+.etapa-feito::before,
+.etapa-atual::before {
+  background: var(--laranja);
+}
+
+.etapa-feito .etapa-icone {
+  background: var(--laranja-escuro);
+  border-color: var(--laranja);
+}
+
+.etapa-atual {
+  color: var(--laranja);
+  font-weight: 600;
+}
+
+.etapa-atual .etapa-icone {
+  border-color: var(--laranja);
+  color: var(--laranja);
+  box-shadow: 0 0 0 5px rgba(255, 138, 31, .2);
 }

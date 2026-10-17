@@ -90,9 +90,39 @@ class Pedido(models.Model):
         acao = self.acao_entregador
         return acao[1] if acao else ''
 
-    @property
+        @property
     def pode_cancelar(self):
         return self.status in self.STATUS_CANCELAVEIS
+
+    ETAPAS = [
+        (Status.FEITO.value, 'Pedido feito', 'bi-bag-check'),
+        (Status.RECEBIDO.value, 'Recebido', 'bi-check2-circle'),
+        (Status.PREPARO.value, 'Em preparo', 'bi-fire'),
+        (Status.SAIU.value, 'A caminho', 'bi-bicycle'),
+        (Status.CHEGOU.value, 'Chegou', 'bi-geo-alt'),
+        (Status.ENTREGUE.value, 'Entregue', 'bi-box-seam'),
+        (Status.FINALIZADO.value, 'Finalizado', 'bi-patch-check'),
+    ]
+
+    @property
+    def linha_do_tempo(self):
+        valores = [valor for valor, _, _ in self.ETAPAS]
+        if self.status not in valores:  # pedido cancelado
+            return []
+
+        atual = valores.index(self.status)
+        finalizado = self.status == self.Status.FINALIZADO
+
+        etapas = []
+        for i, (_, rotulo, icone) in enumerate(self.ETAPAS):
+            if i < atual or finalizado:
+                estado = 'feito'
+            elif i == atual:
+                estado = 'atual'
+            else:
+                estado = 'pendente'
+            etapas.append({'rotulo': rotulo, 'icone': icone, 'estado': estado})
+        return etapas
 
     def __str__(self):
         return f'Pedido #{self.pk} - {self.cliente}'
