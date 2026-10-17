@@ -25,7 +25,6 @@ CARDAPIO = {
         ('Suco Natural (400ml)', 'Suco de polpa, 400ml.', '7.50'),
         ('Água Mineral sem gás', 'Garrafa de água mineral sem gás.', '4.00'),
         ('Água Mineral com gás', 'Garrafa de água mineral com gás.', '4.50'),
-        ('Cerveja Latão (473ml)', 'Lata de 473ml.', '7.00'),
     ],
 }
 
