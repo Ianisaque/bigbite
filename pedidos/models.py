@@ -90,7 +90,7 @@ class Pedido(models.Model):
         acao = self.acao_entregador
         return acao[1] if acao else ''
 
-        @property
+    @property
     def pode_cancelar(self):
         return self.status in self.STATUS_CANCELAVEIS
 
