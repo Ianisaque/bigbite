@@ -18,7 +18,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-glass sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-      <i class="bi bi-fire text-laranja"></i> Big<span class="text-laranja">Bite</span>
+      <i class="bi bi-fire text-vermelho"></i> Big<span class="text-vermelho">Bite</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
       <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,7 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'historico' %}"><i class="bi bi-receipt"></i> Histórico de pedidos</a></li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'carrinho' %}">
-                <i class="bi bi-cart3"></i> Carrinho{% if carrinho_qtd %} <span class="badge rounded-pill bg-laranja">{{ carrinho_qtd }}</span>{% endif %}
+                <i class="bi bi-cart3"></i> Carrinho{% if carrinho_qtd %} <span class="badge rounded-pill bg-vermelho">{{ carrinho_qtd }}</span>{% endif %}
               </a>
             </li>
           {% endif %}
@@ -52,7 +52,7 @@
           </li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Entrar</a></li>
-          <li class="nav-item"><a class="btn btn-laranja btn-sm px-3" href="{% url 'cadastro' %}">Cadastrar</a></li>
+          <li class="nav-item"><a class="btn btn-vermelho btn-sm px-3" href="{% url 'cadastro' %}">Cadastrar</a></li>
         {% endif %}
       </ul>
     </div>

@@ -70,7 +70,7 @@
                   {% endfor %}
                 </select>
               {% endif %}
-              <button type="submit" class="btn btn-laranja btn-sm px-3">{{ pedido.rotulo_acao }}</button>
+              <button type="submit" class="btn btn-vermelho btn-sm px-3">{{ pedido.rotulo_acao }}</button>
             </form>
           {% endif %}
 
@@ -83,7 +83,7 @@
                   <option value="{{ e.pk }}" {% if e == pedido.entregador %}selected{% endif %}>{{ e.nome }}</option>
                 {% endfor %}
               </select>
-              <button type="submit" class="btn btn-outline-laranja btn-sm">Definir</button>
+              <button type="submit" class="btn btn-outline-vermelho btn-sm">Definir</button>
             </form>
           {% endif %}
 

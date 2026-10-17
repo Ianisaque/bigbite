@@ -1,6 +1,6 @@
 :root {
-  --laranja: #ff8a1f;
-  --laranja-escuro: #f26a00;
+  --vermelho: #c11414;
+  --vermelho-escuro: #330000;
 }
 
 /* ---------- Base ---------- */
@@ -18,9 +18,9 @@ body {
   color: #f5f5f5;
   background-color: #14100d;
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(255, 138, 31, .35), transparent 40%),
+    radial-gradient(circle at 15% 20%, rgba(255, 0, 25, 0.25), transparent 40%),
     radial-gradient(circle at 85% 30%, rgba(220, 53, 69, .25), transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(255, 138, 31, .20), transparent 50%);
+    radial-gradient(circle at 50% 90%, rgba(255, 0, 25, 0.25), transparent 50%);
   background-attachment: fixed;
 }
 
@@ -29,18 +29,18 @@ h1, h2, h3, h4, h5 {
   letter-spacing: -0.01em;
 }
 
-.text-laranja {
-  color: var(--laranja);
+.text-vermelho {
+  color: var(--vermelho);
 }
 
-.bg-laranja {
-  background: var(--laranja-escuro);
+.bg-vermelho {
+  background: var(--vermelho-escuro);
   color: #fff;
 }
 
 /* ---------- Navbar e rodapé ---------- */
 .navbar-glass {
-  background: rgba(20, 16, 13, .55);
+  background: rgba(37, 3, 3, 0.55);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, .08);
@@ -56,36 +56,36 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar .nav-link:hover {
-  color: var(--laranja);
+  color: var(--vermelho);
 }
 
 .rodape {
   border-top: 1px solid rgba(255, 255, 255, .08);
-  background: rgba(20, 16, 13, .5);
+  background: rgba(37, 3, 3, 0.55);
 }
 
 /* ---------- Botões ---------- */
-.btn-laranja {
-  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+.btn-vermelho {
+  background: linear-gradient(135deg, #be0202, var(--vermelho-escuro));
   border: 0;
   color: #fff;
   border-radius: 999px;
   font-weight: 600;
 }
 
-.btn-laranja:hover {
+.btn-vermelho:hover {
   filter: brightness(1.1);
   color: #fff;
 }
 
-.btn-outline-laranja {
-  border: 1px solid var(--laranja);
-  color: var(--laranja);
+.btn-outline-vermelho {
+  border: 1px solid var(--vermelho);
+  color: var(--vermelho);
   border-radius: 999px;
 }
 
-.btn-outline-laranja:hover {
-  background: var(--laranja);
+.btn-outline-vermelho:hover {
+  background: var(--vermelho);
   color: #fff;
 }
 
@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-pills .nav-link.active {
-  background: var(--laranja-escuro);
+  background: var(--vermelho-escuro);
   color: #fff;
 }
 
@@ -123,11 +123,11 @@ h1, h2, h3, h4, h5 {
 
 .card.card-produto:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 138, 31, .6);
+  border-color: rgba(236, 0, 0, 0.6);
 }
 
 .preco-produto {
-  color: var(--laranja);
+  color: var(--vermelho);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -166,7 +166,7 @@ h1, h2, h3, h4, h5 {
   left: .6rem;
   padding: .25rem .65rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  background: linear-gradient(135deg, #ffa040, var(--vermelho-escuro));
   color: #fff;
   font-size: .72rem;
   font-weight: 700;
@@ -197,8 +197,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .chip-categoria:hover {
-  background: var(--laranja-escuro);
-  border-color: var(--laranja);
+  background: var(--vermelho-escuro);
+  border-color: var(--vermelho);
   color: #fff;
 }
 
@@ -212,9 +212,9 @@ h1, h2, h3, h4, h5 {
   padding: .35rem .9rem;
   margin-bottom: 1rem;
   border-radius: 999px;
-  background: rgba(255, 138, 31, .15);
-  border: 1px solid rgba(255, 138, 31, .4);
-  color: var(--laranja);
+  background: rgba(255, 31, 31, 0.15);
+  border: 1px solid rgba(255, 31, 31, 0.4);
+  color: #eee;
   font-size: .85rem;
   font-weight: 600;
 }
@@ -242,7 +242,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .hero-infos i {
-  color: var(--laranja);
+  color: var(--vermelho);
 }
 
 .passo {
@@ -264,7 +264,7 @@ h1, h2, h3, h4, h5 {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  background: linear-gradient(135deg, #ff4040, var(--vermelho-escuro));
   color: #fff;
   font-size: 1.3rem;
 }
@@ -291,22 +291,22 @@ h1, h2, h3, h4, h5 {
 }
 
 .selo-feito {
-  background: var(--laranja-escuro);
-  border: 2px solid var(--laranja);
+  background: var(--vermelho-escuro);
+  border: 2px solid var(--vermelho);
   color: #fff;
 }
 
 .selo-atual {
-  border: 2px solid var(--laranja);
-  color: var(--laranja);
-  box-shadow: 0 0 0 4px rgba(255, 138, 31, .2);
+  border: 2px solid var(--vermelho);
+  color: var(--vermelho);
+  box-shadow: 0 0 0 4px rgba(255, 31, 31, 0.2);
 }
 
 .selo-premio {
   width: 4.2rem;
   height: 4.2rem;
   border: 0;
-  background: linear-gradient(135deg, #ffd166, var(--laranja));
+  background: linear-gradient(135deg, #ff6666, var(--vermelho));
   color: #2b1700;
   font-size: 1.05rem;
 }
@@ -351,7 +351,7 @@ h1, h2, h3, h4, h5 {
   height: 2rem;
   border: 0;
   border-radius: 50%;
-  background: var(--laranja-escuro);
+  background: var(--vermelho-escuro);
   color: #fff;
   line-height: 1;
 }
@@ -413,21 +413,21 @@ h1, h2, h3, h4, h5 {
 
 .pagamento-card i {
   font-size: 1.2rem;
-  color: var(--laranja);
+  color: var(--vermelho);
 }
 
 .pagamento-opcao:hover .pagamento-card {
-  border-color: rgba(255, 138, 31, .6);
+  border-color: rgba(255, 31, 31, 0.6);
 }
 
 .pagamento-opcao input:checked + .pagamento-card {
   background: rgba(255, 138, 31, .18);
-  border-color: var(--laranja);
+  border-color: var(--vermelho);
   box-shadow: 0 0 0 3px rgba(255, 138, 31, .2);
 }
 
 .pagamento-opcao input:focus-visible + .pagamento-card {
-  outline: 2px solid var(--laranja);
+  outline: 2px solid var(--vermelhos);
 }
 
 /* ---------- Linha do tempo do pedido ---------- */
@@ -480,22 +480,22 @@ h1, h2, h3, h4, h5 {
 
 .etapa-feito::before,
 .etapa-atual::before {
-  background: var(--laranja);
+  background: var(--vermelho);
 }
 
 .etapa-feito .etapa-icone {
-  background: var(--laranja-escuro);
-  border-color: var(--laranja);
+  background: var(--vermelho-escuro);
+  border-color: var(--vermelho);
 }
 
 .etapa-atual {
-  color: var(--laranja);
+  color: var(--vermelho);
   font-weight: 600;
 }
 
 .etapa-atual .etapa-icone {
-  border-color: var(--laranja);
-  color: var(--laranja);
+  border-color: var(--vermelho);
+  color: var(--vermelho);
   box-shadow: 0 0 0 5px rgba(255, 138, 31, .2);
 }
 

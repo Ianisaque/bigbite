@@ -17,7 +17,7 @@
             <td>{{ pedido.criado_em|date:"d/m/Y H:i" }}</td>
             <td><span class="badge bg-warning text-dark">{{ pedido.get_status_display }}</span></td>
             <td>R$ {{ pedido.total }}</td>
-            <td><a href="{% url 'pedido_detalhe' pedido.pk %}" class="btn btn-outline-laranja btn-sm">Ver</a></td>
+            <td><a href="{% url 'pedido_detalhe' pedido.pk %}" class="btn btn-outline-vermelho btn-sm">Ver</a></td>
           </tr>
         {% endfor %}
       </tbody>
@@ -25,6 +25,6 @@
   </div>
 {% else %}
   <p class="text-muted">Você ainda não fez nenhum pedido.</p>
-  <a href="{% url 'cardapio' %}" class="btn btn-laranja">Ver cardápio</a>
+  <a href="{% url 'cardapio' %}" class="btn btn-vermelho">Ver cardápio</a>
 {% endif %}
 {% endblock %}

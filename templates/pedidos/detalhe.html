@@ -42,7 +42,7 @@
       <div class="d-flex justify-content-between mb-1"><span>Taxa de entrega</span><span>R$ {{ pedido.taxa_entrega }}</span></div>
       <hr>
       <div class="d-flex justify-content-between fs-5 fw-bold">
-        <span>Total</span><span class="text-laranja">R$ {{ pedido.total }}</span>
+        <span>Total</span><span class="text-vermelho">R$ {{ pedido.total }}</span>
       </div>
     </div>
   </div>
@@ -50,16 +50,16 @@
   <div class="col-lg-5">
     <div class="painel-vidro">
       <h5 class="mb-3">Entrega</h5>
-      <p class="mb-2"><i class="bi bi-geo-alt text-laranja"></i> {{ pedido.endereco_entrega }}</p>
-      <p class="mb-2"><i class="bi bi-wallet2 text-laranja"></i> {{ pedido.get_forma_pagamento_display }}</p>
+      <p class="mb-2"><i class="bi bi-geo-alt text-vermelho"></i> {{ pedido.endereco_entrega }}</p>
+      <p class="mb-2"><i class="bi bi-wallet2 text-vermelho"></i> {{ pedido.get_forma_pagamento_display }}</p>
       {% if pedido.entregador %}
-        <p class="mb-0"><i class="bi bi-bicycle text-laranja"></i> Entregador: {{ pedido.entregador.nome }}</p>
+        <p class="mb-0"><i class="bi bi-bicycle text-vermelho"></i> Entregador: {{ pedido.entregador.nome }}</p>
       {% endif %}
     </div>
   </div>
 </div>
 
-<a href="{% url 'historico' %}" class="btn btn-outline-laranja mt-4"><i class="bi bi-arrow-left"></i> Voltar ao histórico</a>
+<a href="{% url 'historico' %}" class="btn btn-outline-vermelho mt-4"><i class="bi bi-arrow-left"></i> Voltar ao histórico</a>
 {% endblock %}
 
 {% block scripts %}
