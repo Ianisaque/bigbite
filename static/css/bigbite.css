@@ -120,3 +120,207 @@ h1, h2, h3, h4, h5 {
   border-top: 1px solid rgba(255, 255, 255, .08);
   background: rgba(20, 16, 13, .5);
 }
+
+/* ---------- Rolagem e âncoras ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+[id^="categoria-"] {
+  scroll-margin-top: 5rem; /* não fica escondido atrás da navbar fixa */
+}
+
+/* ---------- Painel de vidro (reutilizável) ---------- */
+.painel-vidro {
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+  padding: 1.5rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 2rem 0 .5rem;
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: .35rem .9rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  background: rgba(255, 138, 31, .15);
+  border: 1px solid rgba(255, 138, 31, .4);
+  color: var(--laranja);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.hero-titulo {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.hero-sub {
+  max-width: 34rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, .7);
+}
+
+.hero-infos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.4rem;
+  margin-top: 1.5rem;
+  font-size: .9rem;
+  color: rgba(255, 255, 255, .65);
+}
+
+.hero-infos i {
+  color: var(--laranja);
+}
+
+.passo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .8rem 0;
+}
+
+.passo + .passo {
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.passo-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+/* ---------- Selos de fidelidade ---------- */
+.selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+.selo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, .3);
+  color: rgba(255, 255, 255, .6);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.selo-feito {
+  background: var(--laranja-escuro);
+  border: 2px solid var(--laranja);
+  color: #fff;
+}
+
+.selo-atual {
+  border: 2px solid var(--laranja);
+  color: var(--laranja);
+  box-shadow: 0 0 0 4px rgba(255, 138, 31, .2);
+}
+
+.selo-premio {
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 0;
+  background: linear-gradient(135deg, #ffd166, var(--laranja));
+  color: #2b1700;
+  font-size: 1.05rem;
+}
+
+.selo-premio small {
+  font-size: .6rem;
+  letter-spacing: .06em;
+}
+
+/* ---------- Chips de categoria ---------- */
+.chip-categoria {
+  padding: .4rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #eee;
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.chip-categoria:hover {
+  background: var(--laranja-escuro);
+  border-color: var(--laranja);
+  color: #fff;
+}
+
+/* ---------- Card de produto: imagem, selo e descrição ---------- */
+.produto-img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.produto-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.card-produto:hover .produto-img img {
+  transform: scale(1.08);
+}
+
+.produto-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, .35);
+  background: linear-gradient(135deg, rgba(255, 138, 31, .25), rgba(220, 53, 69, .2));
+}
+
+.selo-destaque {
+  position: absolute;
+  top: .6rem;
+  left: .6rem;
+  padding: .25rem .65rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .35);
+}
+
+.produto-descricao {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
+}

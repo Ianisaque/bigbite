@@ -1,16 +1,93 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<div class="p-5 mb-4 rounded-3 text-white text-center" style="background: linear-gradient(135deg, #dc3545, #fd7e14);">
-  <h1 class="display-4 fw-bold">BigBite</h1>
-  <p class="lead">O fast-food que chega até você.</p>
-</div>
 
-<div class="alert alert-warning text-center">
-  <h4 class="alert-heading">Programa de fidelidade</h4>
-  <p class="mb-0">Peça 4 vezes e o <strong>5º pedido sai com 20% de desconto</strong>!</p>
-</div>
+<section class="hero mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <span class="hero-tag"><i class="bi bi-lightning-charge-fill"></i> Entrega rápida</span>
+      <h1 class="hero-titulo">Fome de <span class="text-laranja">verdade</span>?<br>É só pedir.</h1>
+      <p class="hero-sub">Lanches suculentos e bebidas geladas, direto na sua porta. Peça 4 vezes e ganhe 20% de desconto no quinto pedido.</p>
 
-<h2 class="mt-4">Nossos produtos</h2>
-{% include 'cardapio/_lista_produtos.html' %}
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'cardapio' %}" class="btn btn-laranja btn-lg px-4">Ver cardápio</a>
+        {% if not user.is_authenticated %}
+          <a href="{% url 'cadastro' %}" class="btn btn-outline-light btn-lg rounded-pill px-4">Criar conta</a>
+        {% endif %}
+      </div>
+
+      <div class="hero-infos">
+        <span><i class="bi bi-bicycle"></i> Taxa fixa de R$ {{ taxa_entrega }}</span>
+        <span><i class="bi bi-cash-coin"></i> Pague na entrega</span>
+        <span><i class="bi bi-gift"></i> 20% no 5º pedido</span>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="painel-vidro">
+        <h5 class="mb-2">Como funciona</h5>
+        <div class="passo">
+          <div class="passo-icone"><i class="bi bi-egg-fried"></i></div>
+          <div><strong>Escolha</strong><br><span class="text-muted small">Monte o pedido no cardápio</span></div>
+        </div>
+        <div class="passo">
+          <div class="passo-icone"><i class="bi bi-bag-check"></i></div>
+          <div><strong>Peça</strong><br><span class="text-muted small">Informe o endereço e a forma de pagamento</span></div>
+        </div>
+        <div class="passo">
+          <div class="passo-icone"><i class="bi bi-bicycle"></i></div>
+          <div><strong>Receba</strong><br><span class="text-muted small">Acompanhe o status até a sua porta</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="painel-vidro mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-5">
+      <h3><i class="bi bi-gift text-laranja"></i> Programa de fidelidade</h3>
+      {% if posicao == 5 %}
+        <p class="mb-0">Seu próximo pedido sai com <strong class="text-laranja">20% de desconto</strong>!</p>
+      {% elif posicao %}
+        <p class="mb-0">Seu próximo pedido é o <strong>{{ posicao }}º</strong> de 5. O 5º sai com <strong class="text-laranja">20% de desconto</strong>.</p>
+      {% else %}
+        <p class="mb-0">Peça 4 vezes e o 5º sai com <strong class="text-laranja">20% de desconto</strong>. O ciclo se repete a cada 5 pedidos.</p>
+      {% endif %}
+    </div>
+    <div class="col-lg-7">
+      <div class="selos justify-content-lg-end">
+        {% for n in etapas %}
+          <div class="selo{% if posicao and n < posicao %} selo-feito{% elif posicao and n == posicao %} selo-atual{% endif %}{% if n == 5 %} selo-premio{% endif %}">
+            {% if n == 5 %}20%<small>OFF</small>{% elif posicao and n < posicao %}<i class="bi bi-check-lg"></i>{% else %}{{ n }}{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if destaques %}
+  <section class="mb-5">
+    <h2 class="mb-3"><i class="bi bi-fire text-laranja"></i> Mais pedidos</h2>
+    <div class="row g-3">
+      {% for produto in destaques %}
+        {% include 'cardapio/_card_produto.html' %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<section>
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <h2 class="mb-0">Nossos produtos</h2>
+    <div class="d-flex flex-wrap gap-2">
+      {% for categoria in categorias %}
+        <a href="{% url 'cardapio' %}#categoria-{{ categoria.pk }}" class="chip-categoria">{{ categoria.nome }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% include 'cardapio/_lista_produtos.html' %}
+</section>
+
 {% endblock %}

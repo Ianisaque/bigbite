@@ -2,6 +2,13 @@
 {% block titulo %}Cardápio - BigBite{% endblock %}
 
 {% block conteudo %}
-<h2>Cardápio</h2>
+<h1 class="mb-3">Cardápio</h1>
+
+<div class="d-flex flex-wrap gap-2 mb-2">
+  {% for categoria in categorias %}
+    <a href="#categoria-{{ categoria.pk }}" class="chip-categoria">{{ categoria.nome }}</a>
+  {% endfor %}
+</div>
+
 {% include 'cardapio/_lista_produtos.html' %}
 {% endblock %}
