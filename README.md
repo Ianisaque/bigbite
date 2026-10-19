@@ -6,6 +6,15 @@ confirma a entrega, cada um com sua própria tela.
 
 ![Página inicial](docs/home.png)
 
+## Sobre o projeto
+
+O BigBite é uma atividade do curso de **Desenvolvedor Front-end do Senac**, feita
+dentro do projeto **Transforme-se**. Ele reúne na prática o que foi estudado no
+curso (HTML, CSS, layout responsivo e interface) e leva a ideia adiante com um
+back-end em Django, para simular um sistema de pedidos completo.
+
+Por ser um projeto de estudo e de portfólio, não está publicado online.
+
 ## Funcionalidades
 
 **Visitante**
@@ -44,7 +53,7 @@ confirma a entrega, cada um com sua própria tela.
 
 | Entregador | No celular |
 |---|---|
-| ![Entregador](docs/entregador.png) | ![Mobile](docs/mobile.png) |
+| ![Entregador](docs/entregador.png) | <img src="docs/mobile.png" alt="Mobile" width="260"> |
 
 ## Fluxo do pedido
 
