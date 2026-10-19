@@ -8,13 +8,13 @@
 </div>
 
 {% if pedido.status == 'cancelado' %}
-  <div class="alert alert-danger"><i class="bi bi-x-circle"></i> Este pedido foi cancelado.</div>
+  <div class="alert alert-danger"><i class="ph ph-x-circle"></i> Este pedido foi cancelado.</div>
 {% else %}
   <div class="painel-vidro mb-4">
     <div class="linha-tempo">
       {% for etapa in pedido.linha_do_tempo %}
         <div class="etapa etapa-{{ etapa.estado }}">
-          <div class="etapa-icone"><i class="bi {{ etapa.icone }}"></i></div>
+          <div class="etapa-icone"><i class="ph {{ etapa.icone }}"></i></div>
           {{ etapa.rotulo }}
         </div>
       {% endfor %}
@@ -50,16 +50,21 @@
   <div class="col-lg-5">
     <div class="painel-vidro">
       <h5 class="mb-3">Entrega</h5>
-      <p class="mb-2"><i class="bi bi-geo-alt text-vermelho"></i> {{ pedido.endereco_entrega }}</p>
-      <p class="mb-2"><i class="bi bi-wallet2 text-vermelho"></i> {{ pedido.get_forma_pagamento_display }}</p>
+      <p class="mb-2"><i class="ph ph-map-pin text-vermelho"></i> {{ pedido.endereco_entrega }}</p>
+      <p class="mb-2"><i class="ph ph-wallet text-vermelho"></i> {{ pedido.get_forma_pagamento_display }}</p>
+
+      {% if pedido.observacao %}
+        <p class="mb-2"><i class="ph ph-chat-text text-vermelho"></i> {{ pedido.observacao|linebreaksbr }}</p>
+      {% endif %}
+
       {% if pedido.entregador %}
-        <p class="mb-0"><i class="bi bi-bicycle text-vermelho"></i> Entregador: {{ pedido.entregador.nome }}</p>
+        <p class="mb-0"><i class="ph ph-motorcycle text-vermelho"></i> Entregador: {{ pedido.entregador.nome }}</p>
       {% endif %}
     </div>
   </div>
 </div>
 
-<a href="{% url 'historico' %}" class="btn btn-outline-vermelho mt-4"><i class="bi bi-arrow-left"></i> Voltar ao histórico</a>
+<a href="{% url 'historico' %}" class="btn btn-outline-vermelho mt-4"><i class="ph ph-arrow-left"></i> Voltar ao histórico</a>
 {% endblock %}
 
 {% block scripts %}

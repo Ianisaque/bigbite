@@ -1,5 +1,9 @@
+from .models import ADICIONAL_TRIO
+
+
 def carrinho_quantidade(request):
-    if not request.user.is_authenticated:
-        return {}
-    dados = request.session.get('carrinho', {})
-    return {'carrinho_qtd': sum(dados.values())}
+    contexto = {'adicional_trio': ADICIONAL_TRIO}
+    if request.user.is_authenticated:
+        dados = request.session.get('carrinho', {})
+        contexto['carrinho_qtd'] = sum(dados.values())
+    return contexto

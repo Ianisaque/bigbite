@@ -3,14 +3,19 @@
 
 {% block conteudo %}
 <div class="row justify-content-center">
-  <div class="col-md-5">
-    <h2 class="mb-3">Entrar</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_div }}
-      <button type="submit" class="btn btn-danger w-100 mt-3">Entrar</button>
-    </form>
-    <p class="mt-3">Ainda não tem conta? <a href="{% url 'cadastro' %}">Cadastre-se</a></p>
+  <div class="col-md-6 col-lg-4">
+    <div class="painel-vidro form-auth">
+      <div class="text-center mb-3">
+        <i class="ph ph-user-circle auth-icone"></i>
+        <h2>Entrar</h2>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit" class="btn btn-vermelho w-100 mt-2">Entrar</button>
+      </form>
+      <p class="mt-3 mb-0 text-center">Ainda não tem conta? <a href="{% url 'cadastro' %}" class="link-vermelho">Cadastre-se</a></p>
+    </div>
   </div>
 </div>
 {% endblock %}

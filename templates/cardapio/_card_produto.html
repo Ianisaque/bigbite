@@ -5,11 +5,11 @@
       {% if produto.imagem %}
         <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" loading="lazy">
       {% else %}
-        <div class="produto-placeholder"><i class="bi bi-egg-fried"></i></div>
+        <div class="produto-placeholder"><i class="ph ph-hamburger"></i></div>
       {% endif %}
 
       {% if produto.id in mais_pedidos %}
-        <span class="selo-destaque"><i class="bi bi-fire"></i> Mais pedido</span>
+        <span class="selo-destaque"><i class="ph ph-fire"></i> Mais pedido</span>
       {% endif %}
     </div>
 
@@ -26,8 +26,19 @@
           <form method="post" action="{% url 'carrinho_adicionar' produto.id %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">
+
+            {% if produto.permite_trio %}
+              <label class="opcao-trio mt-2">
+                <input type="checkbox" name="trio" class="form-check-input">
+                <span>
+                  Fazer trio <strong>+R$ {{ adicional_trio }}</strong>
+                  <small class="d-block text-muted">com batata e refri lata</small>
+                </span>
+              </label>
+            {% endif %}
+
             <button type="submit" class="btn btn-vermelho btn-sm w-100 mt-2">
-              <i class="bi bi-cart-plus"></i> Adicionar
+              <i class="ph ph-shopping-cart-simple"></i> Adicionar
             </button>
           </form>
         {% endif %}

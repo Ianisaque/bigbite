@@ -10,8 +10,8 @@ from PIL import Image
 
 from cardapio.models import Categoria, Produto
 
-# As fotos originais ficam na pasta img, ao lado do manage.py
-PASTA_IMAGENS = Path(settings.BASE_DIR) / 'img'
+# As fotos originais ficam em static/img (ou, se não houver, na pasta img ao lado do manage.py)
+PASTAS_IMAGENS = [Path(settings.BASE_DIR) / 'static' / 'img', Path(settings.BASE_DIR) / 'img']
 LARGURA_MAX = 900  # px: de sobra para os cards e deixa o site leve
 
 # (nome, descrição, preço, arquivo da foto ou None)
@@ -29,12 +29,20 @@ CARDAPIO = {
         ('Duplo X-Burguer', 'Pão, 2x blends de carne de 120g, dobro de queijo prato e maionese.', '24.00', 'x_duplo_x_burguer.png'),
 
     ],
+    'Porções': [
+        ('Batata Frita (300g)', 'Serve 1 a 2 pessoas. Batata frita crocante, temperada com sal e ervas.', '16.00', 'batata.png'),
+        ('Batata com Cheddar e Bacon (350g)', 'Serve 1 a 2 pessoas. Batata frita com cheddar cremoso e bacon crocante.', '24.00', 'batata_cheddar_bacon.png'),
+        ('Onion Rings (10 unid.)', 'Serve 1 a 2 pessoas. Cerca de 200g de anéis de cebola empanados e crocantes.', '20.00', 'onion_rings.png'),
+    ],
     'Bebidas': [
         ('Refrigerante Lata (350ml)', 'Opções: Coca-Cola, Fanta, Guaraná ou Pepsi.', '6.00', 'refigerante.png'),
         ('Refrigerante 2 Litros', 'Garrafa de 2 litros.', '12.00', 'refrigerante_litro.png'),
         ('Suco Natural (400ml)', 'Suco de polpa, 400ml.', '7.50',  'suco.png'),
         ('Suco Jarra Natural (1,5L)', 'Suco de polpa, 1,5 Litros.', '16.00' ,  'jarra_suco.png'),
         ('Água Mineral sem gás', 'Garrafa de água mineral sem gás.', '4.00' , 'agua.png'),
+        ('Milk Shake de Morango (400ml)', 'Milk shake cremoso de morango com chantilly e cereja.', '14.00', 'milkshake_morango.png'),
+        ('Milk Shake de Creme (400ml)', 'Milk shake cremoso de baunilha com chantilly e cereja.', '14.00', 'milkshake_creme.png'),
+        ('Milk Shake de Chocolate (400ml)', 'Milk shake cremoso de chocolate com chantilly e cereja.', '14.00', 'milkshake_chocolate.png'),
    ],
 }
 
@@ -47,15 +55,28 @@ USUARIOS = [
 
 
 def preparar_foto(caminho):
-    """Reduz a foto mantendo a transparência e devolve o conteúdo em WebP."""
+    """Reduz a foto mantendo a transparência. Devolve (conteúdo, extensão).
+
+    Tenta WebP (leve) com qualidades decrescentes; se o WebP falhar no seu
+    computador, grava um PNG otimizado em vez de parar o comando.
+    """
     with Image.open(caminho) as img:
         img = img.convert('RGBA')
         if img.width > LARGURA_MAX:
             altura = round(img.height * LARGURA_MAX / img.width)
             img = img.resize((LARGURA_MAX, altura), Image.Resampling.LANCZOS)
-        buffer = BytesIO()
-        img.save(buffer, format='WEBP', quality=85, method=6)
-    return ContentFile(buffer.getvalue())
+
+    for qualidade, metodo in ((85, 6), (80, 4), (75, 4), (70, 0)):
+        try:
+            buffer = BytesIO()
+            img.save(buffer, format='WEBP', quality=qualidade, method=metodo)
+            return ContentFile(buffer.getvalue()), 'webp'
+        except Exception:
+            continue
+
+    buffer = BytesIO()
+    img.save(buffer, format='PNG', optimize=True)
+    return ContentFile(buffer.getvalue()), 'png'
 
 
 class Command(BaseCommand):
@@ -70,7 +91,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '--forcar-fotos',
             action='store_true',
-            help='Troca também as fotos que já existem pelas da pasta img.',
+            help='Troca também as fotos que já existem pelas de static/img.',
         )
 
     def anexar_foto(self, produto, arquivo, forcar):
@@ -80,14 +101,17 @@ class Command(BaseCommand):
         if produto.imagem and not forcar:
             return False  # mantém a foto que já está lá (ex.: enviada pelo admin)
 
-        caminho = PASTA_IMAGENS / arquivo
-        if not caminho.exists():
-            self.stdout.write(self.style.WARNING(f'Foto não encontrada: {caminho}'))
+        caminho = next((p / arquivo for p in PASTAS_IMAGENS if (p / arquivo).exists()), None)
+        if caminho is None:
+            self.stdout.write(self.style.WARNING(f'Foto não encontrada: {arquivo} (procurei em static/img e img)'))
             return False
 
         if produto.imagem:
             produto.imagem.delete(save=False)
-        produto.imagem.save(f'{caminho.stem}.webp', preparar_foto(caminho), save=True)
+        conteudo, extensao = preparar_foto(caminho)
+        if extensao != 'webp':
+            self.stdout.write(self.style.WARNING(f'{arquivo}: WebP falhou, usando PNG.'))
+        produto.imagem.save(f'{caminho.stem}.{extensao}', conteudo, save=True)
         return True
 
     def handle(self, *args, **options):
@@ -104,6 +128,9 @@ class Command(BaseCommand):
             )
             if categoria is None:
                 categoria = Categoria.objects.create(nome=nome_categoria, ordem=ordem)
+            elif categoria.ordem != ordem:
+                categoria.ordem = ordem
+                categoria.save(update_fields=['ordem'])
 
             for nome, descricao, preco, foto in itens:
                 existentes = list(

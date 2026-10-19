@@ -3,7 +3,7 @@
 
 {% block conteudo %}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-  <h2 class="mb-0">Painel da loja</h2>
+  <h2 class="mb-0"> Painel da loja</h2>
   <ul class="nav nav-pills">
     {% for chave, rotulo in abas %}
       <li class="nav-item">
@@ -13,15 +13,26 @@
   </ul>
 </div>
 
+<div class="row g-2 mb-4">
+  {% for c in contadores %}
+    <div class="col-4 col-lg-2">
+      <div class="contador-status{% if not c.n %} vazio{% endif %}" data-status="{{ c.status }}">
+        <strong>{{ c.n }}</strong>
+        <span>{{ c.rotulo }}</span>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
 {% for pedido in pedidos %}
-  <div class="card card-produto mb-3">
+  <div class="card card-produto status-borda mb-3" data-status="{{ pedido.status }}">
     <div class="card-body">
 
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
         <div>
           <h5 class="mb-1">
             Pedido #{{ pedido.pk }}
-            <span class="badge bg-warning text-dark ms-2">{{ pedido.get_status_display }}</span>
+            <span class="status-badge ms-2">{{ pedido.get_status_display }}</span>
           </h5>
           <small class="text-muted">
             {{ pedido.criado_em|date:"d/m/Y H:i" }} · {{ pedido.cliente.nome }}
@@ -43,20 +54,23 @@
         </div>
         <div class="col-md-6 small">
           <div><strong>Endereço:</strong> {{ pedido.endereco_entrega }}</div>
+          {% if pedido.observacao %}
+            <div class="obs-pedido"><strong><i class="ph ph-chat-text"></i> Observação:</strong> {{ pedido.observacao|linebreaksbr }}</div>
+          {% endif %}
           <div><strong>Pagamento:</strong> {{ pedido.get_forma_pagamento_display }}</div>
           <div>
             <strong>Entregador:</strong>
             {% if pedido.entregador %}{{ pedido.entregador.nome }}{% else %}<span class="text-warning">não definido</span>{% endif %}
           </div>
           {% if pedido.fidelidade_aplicada %}
-            <div class="text-success">Desconto de fidelidade aplicado</div>
+            <div class="text-success"><i class="ph ph-gift"></i> Desconto de fidelidade aplicado</div>
           {% endif %}
         </div>
       </div>
 
       {% if pedido.status != 'finalizado' and pedido.status != 'cancelado' %}
         <hr>
-        <div class="d-flex flex-wrap gap-3 align-items-center">
+        <div class="acoes-pedido d-flex flex-wrap gap-3 align-items-center">
 
           {% if pedido.acao_loja %}
             <form method="post" action="{% url 'painel_avancar' pedido.pk %}" class="d-flex flex-wrap gap-2">

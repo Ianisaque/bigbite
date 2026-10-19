@@ -2,7 +2,7 @@
 {% block titulo %}Finalizar pedido - BigBite{% endblock %}
 
 {% block conteudo %}
-<h1 class="mb-4"><i class="bi bi-bag-check text-vermelho"></i> Finalizar pedido</h1>
+<h1 class="mb-4"> Finalizar pedido</h1>
 
 <form method="post">
   {% csrf_token %}
@@ -10,7 +10,7 @@
 
     <div class="col-lg-7">
       <div class="painel-vidro mb-4">
-        <h5 class="mb-3"><i class="bi bi-geo-alt text-vermelho"></i> Endereço de entrega</h5>
+        <h5 class="mb-3"><i class="ph ph-map-pin text-vermelho"></i> Endereço de entrega</h5>
         {{ form.endereco_entrega }}
         {% for erro in form.endereco_entrega.errors %}
           <div class="text-danger small mt-1">{{ erro }}</div>
@@ -18,13 +18,13 @@
       </div>
 
       <div class="painel-vidro">
-        <h5 class="mb-3"><i class="bi bi-wallet2 text-vermelho"></i> Forma de pagamento</h5>
+        <h5 class="mb-3"><i class="ph ph-wallet text-vermelho"></i> Forma de pagamento</h5>
         <div class="d-flex flex-wrap gap-2">
           {% for radio in form.forma_pagamento %}
             <label class="pagamento-opcao" for="{{ radio.id_for_label }}">
               {{ radio.tag }}
               <span class="pagamento-card">
-                <i class="bi {% if radio.data.value == 'dinheiro' %}bi-cash-coin{% elif radio.data.value == 'cartao' %}bi-credit-card{% else %}bi-qr-code{% endif %}"></i>
+                <i class="ph {% if radio.data.value == 'dinheiro' %}ph-money{% elif radio.data.value == 'cartao' %}ph-credit-card{% else %}ph-qr-code{% endif %}"></i>
                 {{ radio.choice_label }}
               </span>
             </label>
@@ -47,6 +47,8 @@
             <span>R$ {{ item.subtotal }}</span>
           </div>
         {% endfor %}
+
+        {% if observacao %}<div class="obs-pedido small"><strong>Observação:</strong> {{ observacao|linebreaksbr }}</div>{% endif %}
 
         <hr>
         <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><span>R$ {{ subtotal }}</span></div>

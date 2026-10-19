@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -144,3 +144,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 from django.contrib.messages import constants as messages_constants
 
 MESSAGE_TAGS = {messages_constants.ERROR: 'danger'}
+from django.contrib.messages import constants as message_constants
+
+MESSAGE_TAGS = {
+    message_constants.ERROR: 'danger',
+}

@@ -9,15 +9,18 @@ confirma a entrega, cada um com sua própria tela.
 ## Funcionalidades
 
 **Visitante**
-- Página inicial com banner, explicação do programa de fidelidade e cardápio
+- Página inicial com banner em vídeo, explicação do programa de fidelidade e os lanches mais pedidos
+- Cardápio por categorias (Lanches, Porções e Bebidas)
 - Só consegue pedir depois de fazer login
 
 **Cliente**
 - Cadastro e login por e-mail
 - Carrinho (adicionar, alterar quantidade, remover)
+- **Trio:** qualquer lanche pode virar trio (com batata e refri lata) por +R$ 15,00, com animação do combo no carrinho
+- **Observações:** campo livre no carrinho para pedidos de alteração (ex.: "sem cebola"), visível para a loja e para o entregador
 - Checkout com endereço e forma de pagamento (dinheiro, cartão na entrega ou Pix)
 - Taxa de entrega fixa de R$ 7,00
-- **Fidelidade:** a cada 5 pedidos, o 5º sai com 20% de desconto nos itens
+- **Fidelidade:** a cada 5 pedidos, o 5º sai com 20% de desconto nos itens (pedidos cancelados não contam)
 - Histórico e detalhe dos pedidos com o status em tempo real
 
 **Loja**
@@ -26,8 +29,22 @@ confirma a entrega, cada um com sua própria tela.
 - Cancela pedidos e finaliza após receber o pagamento
 
 **Entregador**
-- Tela própria com endereço (link para o mapa), itens, total e forma de pagamento
+- Tela própria com endereço (link para o mapa), itens, observações, total e forma de pagamento
 - Marca "Cheguei ao destino" e "Entregue"
+
+## Telas
+
+| Cardápio | Carrinho com trio |
+|---|---|
+| ![Cardápio](docs/cardapio.png) | ![Carrinho](docs/carrinho.png) |
+
+| Acompanhamento do pedido | Painel da loja |
+|---|---|
+| ![Pedido](docs/pedido.png) | ![Painel da loja](docs/loja.png) |
+
+| Entregador | No celular |
+|---|---|
+| ![Entregador](docs/entregador.png) | ![Mobile](docs/mobile.png) |
 
 ## Fluxo do pedido
 
@@ -40,7 +57,12 @@ confirma a entrega, cada um com sua própria tela.
 
 ## Tecnologias
 
-Python, Django, SQLite, Bootstrap 5 e CSS próprio (visual glassmorphism).
+- Python, Django e SQLite
+- Bootstrap 5 e CSS próprio (visual glassmorphism, tema vermelho)
+- [Phosphor Icons](https://phosphoricons.com/) para os ícones
+- Pillow, usado pelo comando `popular` para otimizar as fotos dos produtos
+- Animações em CSS puro (logo que se retrai, combo do trio) e um pouco de JavaScript no carrinho
+- Layout responsivo, pensado também para o celular
 
 ## Como rodar
 
@@ -75,6 +97,15 @@ Criados pelo comando `python manage.py popular` (senha de todos: `bigbite123`):
 Para testar o fluxo completo, use uma janela normal para um perfil e uma
 janela anônima para outro, pois o navegador guarda um login por vez.
 
+## Testes
+
+```bash
+python manage.py test
+```
+
+Cobrem o carrinho, o trio, as observações, o checkout, a fidelidade, as
+permissões de cada perfil e o fluxo de status do pedido.
+
 ## Estrutura
 
 - `contas/`: usuário customizado (login por e-mail e tipos de perfil)
@@ -88,4 +119,3 @@ janela anônima para outro, pois o navegador guarda um login por vez.
 - Busca e filtros no cardápio
 - Cupons de desconto
 - Notificação por WhatsApp a cada mudança de status
-- Testes automatizados

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -19,6 +20,15 @@ ABAS = [
 
 def _entregadores():
     return Usuario.objects.filter(tipo='entregador', is_active=True).order_by('nome')
+
+def _contadores():
+    """Quantos pedidos há em cada etapa ainda em aberto."""
+    abertos = [
+        (valor, rotulo) for valor, rotulo in Pedido.Status.choices
+        if valor not in (Pedido.Status.FINALIZADO, Pedido.Status.CANCELADO)
+    ]
+    qtd = dict(Pedido.objects.order_by().values_list('status').annotate(n=Count('pk')))
+    return [{'status': v, 'rotulo': r, 'n': qtd.get(v, 0)} for v, r in abertos]
 
 
 @tipo_required('loja')
@@ -40,6 +50,7 @@ def painel(request):
         'filtro': filtro,
         'abas': ABAS,
         'entregadores': _entregadores(),
+        'contadores': _contadores(),
     })
 
 

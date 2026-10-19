@@ -21,6 +21,11 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=8, decimal_places=2)
     imagem = models.ImageField(upload_to='produtos/', blank=True)
     disponivel = models.BooleanField(default=True)
+    
+    @property
+    def permite_trio(self):
+        """Só os lanches podem virar trio."""
+        return self.categoria.nome.strip().lower() == 'lanches'
 
     class Meta:
         ordering = ['categoria', 'nome']

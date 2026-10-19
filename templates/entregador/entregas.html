@@ -2,11 +2,10 @@
 {% block titulo %}Minhas entregas - BigBite{% endblock %}
 
 {% block conteudo %}
-<h2 class="mb-3">Minhas entregas</h2>
+<h2 class="mb-3"> Minhas entregas</h2>
 
-<h4 class="mt-4">
-  A caminho
-  <span class="badge bg-secondary">{{ a_caminho|length }}</span>
+<h4 class="titulo-secao" data-status="saiu">
+  A caminho <span class="status-badge">{{ a_caminho|length }}</span>
 </h4>
 {% for pedido in a_caminho %}
   {% include 'entregador/_cartao_entrega.html' %}
@@ -14,9 +13,8 @@
   <p class="text-muted">Nenhuma entrega a caminho.</p>
 {% endfor %}
 
-<h4 class="mt-4">
-  No destino
-  <span class="badge bg-warning text-dark">{{ no_destino|length }}</span>
+<h4 class="titulo-secao" data-status="chegou">
+  No destino <span class="status-badge">{{ no_destino|length }}</span>
 </h4>
 {% for pedido in no_destino %}
   {% include 'entregador/_cartao_entrega.html' %}
@@ -24,12 +22,11 @@
   <p class="text-muted">Nenhuma entrega aguardando confirmação.</p>
 {% endfor %}
 
-<h4 class="mt-4">
-  Entregues hoje
-  <span class="badge bg-success">{{ entregues_hoje|length }}</span>
+<h4 class="titulo-secao" data-status="entregue">
+  Entregues hoje <span class="status-badge">{{ entregues_hoje|length }}</span>
 </h4>
 {% for pedido in entregues_hoje %}
-  <div class="d-flex justify-content-between border-bottom py-2 small">
+  <div class="entrega-linha">
     <span>Pedido #{{ pedido.pk }} · {{ pedido.endereco_entrega }}</span>
     <span class="text-muted">{{ pedido.atualizado_em|date:"H:i" }}</span>
   </div>

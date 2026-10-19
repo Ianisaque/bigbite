@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Acesso negado - BigBite{% endblock %}
+
+{% block conteudo %}
+<div class="painel-vidro pagina-erro">
+  <img src="{% static 'img/burger.webp' %}" alt="" class="erro-icone">
+  <div class="erro-codigo">403</div>
+  <h2 class="mb-2">Área restrita</h2>
+  <p class="text-muted">Seu tipo de conta não tem acesso a essa página.</p>
+  <a href="{% url 'home' %}" class="btn btn-vermelho px-4">Voltar ao início</a>
+</div>
+{% endblock %}

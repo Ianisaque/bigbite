@@ -35,7 +35,7 @@ def home(request):
     return render(request, 'cardapio/home.html', {
         'categorias': _categorias(),
         'mais_pedidos': mais_pedidos,
-        'destaques': Produto.objects.filter(id__in=mais_pedidos, disponivel=True),
+        'destaques': Produto.objects.filter(id__in=mais_pedidos, disponivel=True).select_related('categoria'),
         'taxa_entrega': TAXA_ENTREGA,
         'etapas': range(1, CICLO + 1),
         'posicao': posicao,

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block titulo %}BigBite - Lanches com entrega rápida{% endblock %}
+
 {% block conteudo %}
 
 <section class="hero mb-5">
   <div class="row align-items-center g-4">
     <div class="col-lg-7">
-      <span class="hero-tag"><i class="bi bi-lightning-charge-fill"></i> Entrega rápida</span>
+      <span class="hero-tag"></i> Entrega rápida</span>
       <h1 class="hero-titulo">Fome de <span class="text-vermelho">verdade</span>?<br>É só pedir.</h1>
       <p class="hero-sub">Lanches suculentos e bebidas geladas, direto na sua porta. Peça 4 vezes e ganhe 20% de desconto no quinto pedido.</p>
 
@@ -17,9 +21,9 @@
       </div>
 
       <div class="hero-infos">
-        <span><i class="bi bi-bicycle"></i> Taxa fixa de R$ {{ taxa_entrega }}</span>
-        <span><i class="bi bi-cash-coin"></i> Pague na entrega</span>
-        <span><i class="bi bi-gift"></i> 20% no 5º pedido</span>
+        <span> Taxa fixa de R$ {{ taxa_entrega }}</span>
+        <span> Pague na entrega</span>
+        <span> 20% no 5º pedido</span>
       </div>
     </div>
 
@@ -27,15 +31,15 @@
       <div class="painel-vidro">
         <h5 class="mb-2">Como funciona</h5>
         <div class="passo">
-          <div class="passo-icone"><i class="bi bi-egg-fried"></i></div>
+          <div class="passo-icone"><i class="ph ph-hamburger"></i></div>
           <div><strong>Escolha</strong><br><span class="text-muted small">Monte o pedido no cardápio</span></div>
         </div>
         <div class="passo">
-          <div class="passo-icone"><i class="bi bi-bag-check"></i></div>
+          <div class="passo-icone"><i class="ph ph-basket"></i></div>
           <div><strong>Peça</strong><br><span class="text-muted small">Informe o endereço e a forma de pagamento</span></div>
         </div>
         <div class="passo">
-          <div class="passo-icone"><i class="bi bi-bicycle"></i></div>
+          <div class="passo-icone"><i class="ph ph-motorcycle"></i></div>
           <div><strong>Receba</strong><br><span class="text-muted small">Acompanhe o status até a sua porta</span></div>
         </div>
       </div>
@@ -43,10 +47,19 @@
   </div>
 </section>
 
+<section class="faixa-brasa mb-5">
+    <video class="faixa-brasa-video" autoplay muted loop playsinline preload="metadata"
+           poster="{% static 'img/banner-brasa-poster.webp' %}" aria-hidden="true">
+      <source src="{% static 'img/banner-brasa.mp4' %}" type="video/mp4">
+      <source src="{% static 'img/banner-brasa.webm' %}" type="video/webm">
+    </video>
+    <h2 class="faixa-brasa-titulo">O autêntico sabor da <span class="text-vermelho">brasa</span></h2>
+</section>
+
 <section class="painel-vidro mb-5">
   <div class="row align-items-center g-4">
     <div class="col-lg-5">
-      <h3><i class="bi bi-gift text-vermelho"></i> Programa de fidelidade</h3>
+      <h3> Programa de fidelidade</h3>
       {% if posicao == 5 %}
         <p class="mb-0">Seu próximo pedido sai com <strong class="text-vermelho">20% de desconto</strong>!</p>
       {% elif posicao %}
@@ -59,7 +72,7 @@
       <div class="selos justify-content-lg-end">
         {% for n in etapas %}
           <div class="selo{% if posicao and n < posicao %} selo-feito{% elif posicao and n == posicao %} selo-atual{% endif %}{% if n == 5 %} selo-premio{% endif %}">
-            {% if n == 5 %}20%<small>OFF</small>{% elif posicao and n < posicao %}<i class="bi bi-check-lg"></i>{% else %}{{ n }}{% endif %}
+            {% if n == 5 %}20%<small>OFF</small>{% elif posicao and n < posicao %}<i class="ph ph-check"></i>{% else %}{{ n }}{% endif %}
           </div>
         {% endfor %}
       </div>
@@ -69,7 +82,7 @@
 
 {% if destaques %}
   <section class="mb-5">
-    <h2 class="mb-3"><i class="bi bi-fire text-vermelho"></i> Mais pedidos</h2>
+    <h2 class="mb-3"><i class="ph ph-fire text-vermelho"></i> Mais pedidos</h2>
     <div class="row g-3">
       {% for produto in destaques %}
         {% include 'cardapio/_card_produto.html' %}
@@ -77,17 +90,5 @@
     </div>
   </section>
 {% endif %}
-
-<section>
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-    <h2 class="mb-0">Nossos produtos</h2>
-    <div class="d-flex flex-wrap gap-2">
-      {% for categoria in categorias %}
-        <a href="{% url 'cardapio' %}#categoria-{{ categoria.pk }}" class="chip-categoria">{{ categoria.nome }}</a>
-      {% endfor %}
-    </div>
-  </div>
-  {% include 'cardapio/_lista_produtos.html' %}
-</section>
 
 {% endblock %}

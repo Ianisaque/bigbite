@@ -1,4 +1,3 @@
-from contas.decorators import tipo_required
 from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
@@ -6,23 +5,37 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from cardapio.models import Produto
+from contas.decorators import tipo_required
 
 from .carrinho import Carrinho
 from .forms import CheckoutForm
 from .models import ItemPedido, Pedido
 
 
-
 @tipo_required('cliente')
 def ver_carrinho(request):
-    return render(request, 'pedidos/carrinho.html', Carrinho(request).resumo(request.user))
+    carrinho = Carrinho(request)
+    contexto = {**carrinho.resumo(request.user), 'observacao': carrinho.observacao}
+    return render(request, 'pedidos/carrinho.html', contexto)
+
+
+@tipo_required('cliente')
+@require_POST
+def salvar_observacao(request):
+    Carrinho(request).definir_observacao(request.POST.get('observacao', ''))
+    if request.POST.get('destino') == 'cardapio':
+        return redirect('cardapio')
+    return redirect('finalizar')
 
 @tipo_required('cliente')
 @require_POST
 def adicionar(request, produto_id):
     produto = get_object_or_404(Produto, id=produto_id, disponivel=True)
-    Carrinho(request).adicionar(produto.id)
-    messages.success(request, f'{produto.nome} adicionado ao carrinho.')
+    trio = request.POST.get('trio') == 'on' and produto.permite_trio
+    Carrinho(request).adicionar(produto.id, trio=trio)
+
+    nome = f'{produto.nome} (trio)' if trio else produto.nome
+    messages.success(request, f'{nome} adicionado ao carrinho.')
 
     destino = request.POST.get('next', '')
     if not url_has_allowed_host_and_scheme(destino, allowed_hosts={request.get_host()}):
@@ -37,15 +50,28 @@ def atualizar(request, produto_id):
         quantidade = int(request.POST.get('quantidade', 1))
     except ValueError:
         quantidade = 1
-    Carrinho(request).definir(produto_id, min(quantidade, 99))
+    trio = request.POST.get('trio') == '1'
+    Carrinho(request).definir(produto_id, min(quantidade, 99), trio=trio)
     return redirect('carrinho')
 
 
 @tipo_required('cliente')
 @require_POST
 def remover(request, produto_id):
-    Carrinho(request).remover(produto_id)
+    trio = request.POST.get('trio') == '1'
+    Carrinho(request).remover(produto_id, trio=trio)
     return redirect('carrinho')
+
+
+@tipo_required('cliente')
+@require_POST
+def alternar_trio(request, produto_id):
+    """Transforma uma unidade do lanche em trio (ou volta para só o lanche)."""
+    produto = get_object_or_404(Produto, id=produto_id, disponivel=True)
+    if produto.permite_trio:
+        Carrinho(request).converter(produto.id, para_trio=request.POST.get('para') == 'trio')
+    return redirect('carrinho')
+
 
 @tipo_required('cliente')
 def finalizar(request):
@@ -69,6 +95,7 @@ def finalizar(request):
             pedido.taxa_entrega = resumo['taxa_entrega']
             pedido.total = resumo['total']
             pedido.fidelidade_aplicada = resumo['fidelidade']
+            pedido.observacao = carrinho.observacao
             pedido.save()
 
             ItemPedido.objects.bulk_create([
@@ -76,7 +103,8 @@ def finalizar(request):
                     pedido=pedido,
                     produto=item['produto'],
                     quantidade=item['quantidade'],
-                    preco_unitario=item['produto'].preco,
+                    trio=item['trio'],
+                    preco_unitario=item['preco_unitario'],
                 )
                 for item in resumo['itens']
             ])
@@ -85,12 +113,12 @@ def finalizar(request):
         messages.success(request, f'Pedido #{pedido.pk} realizado com sucesso!')
         return redirect('pedido_detalhe', pk=pedido.pk)
 
-    return render(request, 'pedidos/finalizar.html', {**resumo, 'form': form})
+    return render(request, 'pedidos/finalizar.html', {**resumo, 'form': form, 'observacao': carrinho.observacao})
 
 
 @tipo_required('cliente')
 def historico(request):
-    pedidos = request.user.pedidos.all()
+    pedidos = request.user.pedidos.prefetch_related('itens__produto')
     return render(request, 'pedidos/historico.html', {'pedidos': pedidos})
 
 

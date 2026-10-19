@@ -7,6 +7,7 @@ from cardapio.models import Produto
 
 TAXA_ENTREGA = Decimal('7.00')
 
+ADICIONAL_TRIO = Decimal('15.00')
 
 class Pedido(models.Model):
     class Status(models.TextChoices):
@@ -37,6 +38,7 @@ class Pedido(models.Model):
     )
     forma_pagamento = models.CharField(max_length=10, choices=Pagamento.choices)
     endereco_entrega = models.TextField()
+    observacao = models.TextField('Observações', blank=True, default='')
 
     subtotal = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     desconto = models.DecimalField(max_digits=8, decimal_places=2, default=0)
@@ -95,13 +97,13 @@ class Pedido(models.Model):
         return self.status in self.STATUS_CANCELAVEIS
 
     ETAPAS = [
-        (Status.FEITO.value, 'Pedido feito', 'bi-bag-check'),
-        (Status.RECEBIDO.value, 'Recebido', 'bi-check2-circle'),
-        (Status.PREPARO.value, 'Em preparo', 'bi-fire'),
-        (Status.SAIU.value, 'A caminho', 'bi-bicycle'),
-        (Status.CHEGOU.value, 'Chegou', 'bi-geo-alt'),
-        (Status.ENTREGUE.value, 'Entregue', 'bi-box-seam'),
-        (Status.FINALIZADO.value, 'Finalizado', 'bi-patch-check'),
+    (Status.FEITO.value, 'Pedido feito', 'ph-check'),
+    (Status.RECEBIDO.value, 'Recebido', 'ph-check'),
+    (Status.PREPARO.value, 'Em preparo', 'ph-check'),
+    (Status.SAIU.value, 'A caminho', 'ph-check'),
+    (Status.CHEGOU.value, 'Chegou', 'ph-check'),
+    (Status.ENTREGUE.value, 'Entregue', 'ph-check'),
+    (Status.FINALIZADO.value, 'Finalizado', 'ph-check'),
     ]
 
     @property
@@ -132,6 +134,14 @@ class ItemPedido(models.Model):
     pedido = models.ForeignKey(
         Pedido, on_delete=models.CASCADE, related_name='itens'
     )
+    trio = models.BooleanField(default=False)
+
+    @property
+    def descricao(self):
+        if self.trio:
+            return f'{self.produto.nome} em trio (+ batata e refri lata)'
+        return self.produto.nome
+    
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField(default=1)
     preco_unitario = models.DecimalField(max_digits=8, decimal_places=2)

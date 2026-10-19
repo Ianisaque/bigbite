@@ -1,6 +1,5 @@
 :root {
-  --vermelho: #c11414;
-  --vermelho-escuro: #330000;
+  --laranja-claro: #fe8f34; /* textos e ícones sobre fundo escuro */
 }
 
 /* ---------- Base ---------- */
@@ -29,12 +28,12 @@ h1, h2, h3, h4, h5 {
   letter-spacing: -0.01em;
 }
 
-.text-vermelho {
-  color: var(--vermelho);
+.text-laranja {
+  color: var(--laranja);
 }
 
-.bg-vermelho {
-  background: var(--vermelho-escuro);
+.bg-laranja {
+  background: var(--laranja-escuro);
   color: #fff;
 }
 
@@ -56,7 +55,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .navbar .nav-link:hover {
-  color: var(--vermelho);
+  color: var(--laranja);
 }
 
 .rodape {
@@ -65,27 +64,27 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ---------- Botões ---------- */
-.btn-vermelho {
-  background: linear-gradient(135deg, #be0202, var(--vermelho-escuro));
+.btn-laranja {
+  background: linear-gradient(135deg, #be0202, var(--laranja-escuro));
   border: 0;
   color: #fff;
   border-radius: 999px;
   font-weight: 600;
 }
 
-.btn-vermelho:hover {
+.btn-laranja:hover {
   filter: brightness(1.1);
   color: #fff;
 }
 
-.btn-outline-vermelho {
-  border: 1px solid var(--vermelho);
-  color: var(--vermelho);
+.btn-outline-laranja {
+  border: 1px solid var(--laranja);
+  color: var(--laranja);
   border-radius: 999px;
 }
 
-.btn-outline-vermelho:hover {
-  background: var(--vermelho);
+.btn-outline-laranja:hover {
+  background: var(--laranja);
   color: #fff;
 }
 
@@ -94,7 +93,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-pills .nav-link.active {
-  background: var(--vermelho-escuro);
+  background: var(--laranja-escuro);
   color: #fff;
 }
 
@@ -123,11 +122,11 @@ h1, h2, h3, h4, h5 {
 
 .card.card-produto:hover {
   transform: translateY(-4px);
-  border-color: rgba(236, 0, 0, 0.6);
+  border-color: rgba(255, 129, 4, 0.6);
 }
 
 .preco-produto {
-  color: var(--vermelho);
+  color: var(--laranja);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -166,7 +165,7 @@ h1, h2, h3, h4, h5 {
   left: .6rem;
   padding: .25rem .65rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ffa040, var(--vermelho-escuro));
+  background: linear-gradient(135deg, #ffa040, var(--laranja-escuro));
   color: #fff;
   font-size: .72rem;
   font-weight: 700;
@@ -197,8 +196,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .chip-categoria:hover {
-  background: var(--vermelho-escuro);
-  border-color: var(--vermelho);
+  background: var(--laranja-escuro);
+  border-color: var(--laranja);
   color: #fff;
 }
 
@@ -242,7 +241,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .hero-infos i {
-  color: var(--vermelho);
+  color: var(--laranja);
 }
 
 .passo {
@@ -264,7 +263,7 @@ h1, h2, h3, h4, h5 {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff4040, var(--vermelho-escuro));
+  background: linear-gradient(135deg, #ff4040, var(--laranja-escuro));
   color: #fff;
   font-size: 1.3rem;
 }
@@ -291,14 +290,14 @@ h1, h2, h3, h4, h5 {
 }
 
 .selo-feito {
-  background: var(--vermelho-escuro);
-  border: 2px solid var(--vermelho);
+  background: var(--laranja-escuro);
+  border: 2px solid var(--laranja);
   color: #fff;
 }
 
 .selo-atual {
-  border: 2px solid var(--vermelho);
-  color: var(--vermelho);
+  border: 2px solid var(--laranja);
+  color: var(--laranja);
   box-shadow: 0 0 0 4px rgba(255, 31, 31, 0.2);
 }
 
@@ -306,7 +305,7 @@ h1, h2, h3, h4, h5 {
   width: 4.2rem;
   height: 4.2rem;
   border: 0;
-  background: linear-gradient(135deg, #ff6666, var(--vermelho));
+  background: linear-gradient(135deg, #ff6666, var(--laranja));
   color: #2b1700;
   font-size: 1.05rem;
 }
@@ -351,7 +350,7 @@ h1, h2, h3, h4, h5 {
   height: 2rem;
   border: 0;
   border-radius: 50%;
-  background: var(--vermelho-escuro);
+  background: var(--laranja-escuro);
   color: #fff;
   line-height: 1;
 }
@@ -413,7 +412,7 @@ h1, h2, h3, h4, h5 {
 
 .pagamento-card i {
   font-size: 1.2rem;
-  color: var(--vermelho);
+  color: var(--laranja);
 }
 
 .pagamento-opcao:hover .pagamento-card {
@@ -422,12 +421,12 @@ h1, h2, h3, h4, h5 {
 
 .pagamento-opcao input:checked + .pagamento-card {
   background: rgba(255, 138, 31, .18);
-  border-color: var(--vermelho);
+  border-color: var(--laranja);
   box-shadow: 0 0 0 3px rgba(255, 138, 31, .2);
 }
 
 .pagamento-opcao input:focus-visible + .pagamento-card {
-  outline: 2px solid var(--vermelhos);
+  outline: 2px solid var(--laranjas);
 }
 
 /* ---------- Linha do tempo do pedido ---------- */
@@ -480,26 +479,747 @@ h1, h2, h3, h4, h5 {
 
 .etapa-feito::before,
 .etapa-atual::before {
-  background: var(--vermelho);
+  background: var(--laranja);
 }
 
 .etapa-feito .etapa-icone {
-  background: var(--vermelho-escuro);
-  border-color: var(--vermelho);
+  background: var(--laranja-escuro);
+  border-color: var(--laranja);
 }
 
 .etapa-atual {
-  color: var(--vermelho);
+  color: var(--laranja);
   font-weight: 600;
 }
 
 .etapa-atual .etapa-icone {
-  border-color: var(--vermelho);
-  color: var(--vermelho);
+  border-color: var(--laranja);
+  color: var(--laranja);
   box-shadow: 0 0 0 5px rgba(255, 138, 31, .2);
 }
 
 /* Brilho laranja atrás das fotos recortadas */
 .produto-img {
   background: radial-gradient(circle at 50% 65%, rgba(255, 138, 31, .30), transparent 70%);
+}
+
+/* =====================================================
+   Passo 14: ajustes de cor, contraste e novas telas
+   ===================================================== */
+
+/* ---------- Texto e ícones em laranja: usa o tom claro (legível no escuro) ---------- */
+.text-laranja,
+.preco-produto,
+.hero-infos i,
+.pagamento-card i,
+.navbar .nav-link:hover,
+.selo-atual,
+.etapa-atual {
+  color: var(--laranja-claro);
+}
+
+.link-laranja {
+  color: var(--laranja-claro);
+}
+
+.link-laranja:hover {
+  color: #fff;
+}
+
+.btn-outline-laranja {
+  border-color: var(--laranja-claro);
+  color: var(--laranja-claro);
+}
+
+.btn-outline-laranja:hover {
+  background: var(--laranja);
+  border-color: var(--laranja);
+  color: #fff;
+}
+
+/* ---------- Elementos que ficavam escuros demais (contador do carrinho, abas, botões +/-) ---------- */
+.bg-laranja,
+.btn-qtd,
+.nav-pills .nav-link.active {
+  background: var(--laranja);
+  color: #fff;
+}
+
+.selo-premio {
+  color: #fff;
+}
+
+.selo-destaque {
+  background: linear-gradient(135deg, #e02020, var(--laranja));
+}
+
+/* ---------- Tons que ainda estavam laranja ---------- */
+.produto-img {
+  background: radial-gradient(circle at 50% 65%, rgba(255, 40, 40, .30), transparent 70%);
+}
+
+.produto-placeholder,
+.item-thumb {
+  background: linear-gradient(135deg, rgba(255, 40, 40, .25), rgba(120, 0, 0, .25));
+}
+
+.pagamento-opcao input:checked + .pagamento-card {
+  background: rgba(255, 40, 40, .16);
+  border-color: var(--laranja-claro);
+  box-shadow: 0 0 0 3px rgba(255, 40, 40, .2);
+}
+
+.pagamento-opcao input:focus-visible + .pagamento-card {
+  outline: 2px solid var(--laranja-claro); /* corrige o var(--laranjas) */
+}
+
+.etapa-atual .etapa-icone {
+  border-color: var(--laranja-claro);
+  color: var(--laranja-claro);
+  box-shadow: 0 0 0 5px rgba(255, 40, 40, .2);
+}
+
+/* ---------- Cores por status do pedido ---------- */
+[data-status]              { --cor-status: #adb5bd; }
+[data-status="feito"]      { --cor-status: #6ea8fe; }
+[data-status="recebido"]   { --cor-status: #3dd5f3; }
+[data-status="preparo"]    { --cor-status: #ffc107; }
+[data-status="saiu"]       { --cor-status: #fd7e14; }
+[data-status="chegou"]     { --cor-status: #b6e04a; }
+[data-status="entregue"]   { --cor-status: #2fbf71; }
+[data-status="finalizado"] { --cor-status: #8fb8a6; }
+[data-status="cancelado"]  { --cor-status: #9aa0a6; }
+
+.status-badge {
+  display: inline-block;
+  padding: .2rem .7rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--cor-status);
+  background: color-mix(in srgb, var(--cor-status) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cor-status) 55%, transparent);
+}
+
+.card.status-borda {
+  border-left: 4px solid var(--cor-status);
+}
+
+.pedido-link,
+.pedido-link:hover {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Login e cadastro ---------- */
+.auth-icone {
+  margin-bottom: .5rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--laranja-claro);
+}
+
+.form-auth form > div {
+  margin-bottom: 1rem;
+}
+
+.form-auth label {
+  margin-bottom: .35rem;
+  font-weight: 500;
+}
+
+.form-auth .helptext {
+  margin-bottom: .35rem;
+  font-size: .8rem;
+  color: rgba(255, 255, 255, .55);
+}
+
+.form-auth .helptext ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.form-auth .errorlist {
+  margin: .35rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .85rem;
+  color: #ff8080;
+}
+
+.form-auth form > .errorlist {
+  margin-bottom: 1rem;
+}
+
+.form-auth .form-control:focus {
+  border-color: var(--laranja-claro);
+  box-shadow: 0 0 0 .2rem rgba(255, 40, 40, .2);
+}
+
+/* =====================================================
+   Passo 15: painel da loja e tela do entregador
+   ===================================================== */
+.contador-status {
+  padding: .8rem .4rem;
+  text-align: center;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-top: 3px solid var(--cor-status);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.contador-status strong {
+  display: block;
+  font-size: 1.8rem;
+  line-height: 1.1;
+  color: var(--cor-status);
+}
+
+.contador-status span {
+  font-size: .75rem;
+  color: rgba(255, 255, 255, .72);
+}
+
+.contador-status.vazio strong {
+  opacity: .4;
+}
+
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 1.75rem 0 .75rem;
+  font-size: 1.15rem;
+}
+
+.btn-grande {
+  padding: .85rem 1rem;
+  font-size: 1.05rem;
+}
+
+.entrega-endereco {
+  padding: .75rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, .06);
+}
+
+.entrega-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  font-size: .9rem;
+}
+
+/* Celular: ações do painel em coluna, com botões e campos de largura total */
+@media (max-width: 575.98px) {
+  .acoes-pedido,
+  .acoes-pedido form {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .acoes-pedido .form-select,
+  .acoes-pedido .btn {
+    width: 100%;
+  }
+}
+
+
+/* =====================================================
+   Páginas de erro
+   ===================================================== */
+.pagina-erro {
+  max-width: 34rem;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.erro-codigo {
+  font-size: clamp(5rem, 18vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--vermelho-claro);
+  text-shadow: 0 4px 28px rgba(255, 40, 40, .4);
+}
+
+.erro-icone {
+  width: 96px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+
+/* =====================================================
+   Ajustes para celular
+   ===================================================== */
+
+/* iOS: fundo "fixed" causa pulos; no celular/tablet ele rola junto */
+@media (max-width: 991.98px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* O resumo só gruda na tela quando está ao lado dos itens (telas grandes) */
+@media (max-width: 991.98px) {
+  .resumo-fixo {
+    position: static;
+  }
+}
+
+/* ---------- Item do carrinho ---------- */
+.item-carrinho {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  grid-template-areas: "thumb info qtd subtotal remover";
+  align-items: center;
+  gap: .75rem 1rem;
+}
+
+.item-carrinho .item-thumb    { grid-area: thumb; }
+.item-carrinho .item-info     { grid-area: info; min-width: 0; }
+.item-carrinho .seletor-qtd   { grid-area: qtd; }
+.item-carrinho .item-subtotal { grid-area: subtotal; }
+.item-carrinho .item-remover  { grid-area: remover; }
+
+@media (max-width: 575.98px) {
+  .item-carrinho {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "thumb info remover"
+      "qtd   qtd  subtotal";
+  }
+
+  .item-carrinho .item-subtotal {
+    min-width: 0;
+  }
+
+  .item-carrinho .seletor-qtd {
+    justify-self: start;
+  }
+}
+
+/* ---------- Cards do cardápio em tela pequena ---------- */
+@media (max-width: 575.98px) {
+  .card-produto .card-title {
+    font-size: 1rem;
+  }
+
+  .card-produto .card-body {
+    padding: .75rem;
+  }
+
+  .hero {
+    padding-top: .5rem;
+  }
+}
+
+/* ---------- Mensagens (alertas) no estilo do tema ---------- */
+.alert {
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* =====================================================
+   Passo 16: logo, favicon e faixa "sabor da brasa"
+   ===================================================== */
+.marca-icone {
+  height: 34px;
+  width: auto;
+  margin-right: .4rem;
+  vertical-align: -8px;
+}
+
+.faixa-brasa {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, .15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .35);
+  background: #14100d url('../img/banner-brasa.webp') center / cover no-repeat;
+}
+
+.faixa-brasa::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(20, 8, 6, .72) 0%, rgba(20, 8, 6, .35) 75%);
+}
+
+.faixa-brasa-titulo {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, .6);
+}
+
+
+/* Botão vermelho mais visível sobre o fundo escuro */
+.btn-vermelho {
+  background: linear-gradient(135deg, #f70e0e, #880a0a);
+}
+
+
+/* =====================================================
+trio, fotos recortadas e carrinho
+   ===================================================== */
+
+/* Fotos recortadas de perto: mostra o produto inteiro, sem cortar as bordas */
+.produto-img img {
+  object-fit: contain;
+  padding: .5rem;
+}
+
+.item-thumb img {
+  object-fit: contain;
+  padding: .2rem;
+}
+
+/* Opção "Fazer trio" no card do lanche */
+.opcao-trio {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .45rem .6rem;
+  border-radius: .75rem;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .15);
+  font-size: .8rem;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.opcao-trio:hover {
+  border-color: var(--vermelho-claro);
+}
+
+.opcao-trio input {
+  flex-shrink: 0;
+  margin-top: .15rem;
+  cursor: pointer;
+}
+
+.opcao-trio input:checked {
+  background-color: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+.opcao-trio:has(input:checked) {
+  background: rgba(255, 40, 40, .14);
+  border-color: var(--vermelho-claro);
+}
+
+.opcao-trio strong {
+  color: var(--vermelho-claro);
+  white-space: nowrap;
+}
+
+/* Carrinho: selo e botão do trio */
+.selo-trio {
+  display: inline-block;
+  margin-left: .35rem;
+  padding: .1rem .55rem;
+  border-radius: 999px;
+  background: var(--vermelho);
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.btn-link-trio {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--vermelho-claro);
+  font-size: .8rem;
+  text-align: left;
+}
+
+.btn-link-trio:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+/* =====================================================
+   Banner da brasa em vídeo
+   ===================================================== */
+.faixa-brasa {
+  background: #14100d url('../img/banner-brasa-poster.webp') center / cover no-repeat;
+}
+
+.faixa-brasa-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.faixa-brasa::before {
+  z-index: 1;
+}
+
+.faixa-brasa-titulo {
+  z-index: 2;
+}
+
+/* Quem prefere menos movimento vê só a imagem parada */
+@media (prefers-reduced-motion: reduce) {
+  .faixa-brasa-video {
+    display: none;
+  }
+}
+
+/* ---------- Combo ao lado do lanche no carrinho ---------- */
+
+.carrinho-fotos {
+  --foto: 4.5rem;
+  grid-area: thumb;
+  display: flex;
+  align-items: center;
+  height: var(--foto);
+  width: var(--foto);                       /* só o lanche: card quadrado */
+  overflow: hidden;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(255, 40, 40, .25), rgba(120, 0, 0, .25));
+}
+
+/* com trio, o card fica largo o bastante para lanche + combo */
+.carrinho-fotos.com-trio {
+  width: calc(var(--foto) * 2 - .6rem);
+}
+
+/* o lanche perde o fundo próprio: quem tem fundo agora é o card todo */
+.carrinho-fotos .carrinho-lanche {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 var(--foto);
+  width: var(--foto);
+  height: var(--foto);
+  border-radius: 0;
+  background: none;
+}
+
+.carrinho-fotos .carrinho-combo {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 var(--foto);
+  width: var(--foto);
+  height: var(--foto);
+  margin-left: -.6rem;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .45));
+}
+
+/* ---- animação: o card se estica e o combo entra girando ---- */
+@keyframes card-expande {
+  from { width: var(--foto); }
+  to   { width: calc(var(--foto) * 2 - .6rem); }
+}
+
+@keyframes card-encolhe {
+  from { width: calc(var(--foto) * 2 - .6rem); }
+  to   { width: var(--foto); }
+}
+
+@keyframes combo-entra {
+  0%   { opacity: 0; transform: translateX(-3rem) rotate(-260deg) scale(.35); }
+  60%  { opacity: 1; transform: translateX(.35rem) rotate(14deg) scale(1.1); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes combo-sai {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateX(-3rem) rotate(-260deg) scale(.35); }
+}
+
+.carrinho-fotos.anim-entra { animation: card-expande .55s cubic-bezier(.3, 1.3, .5, 1) both; }
+.carrinho-fotos.anim-entra .carrinho-combo { animation: combo-entra .75s cubic-bezier(.2, .8, .3, 1) both; }
+
+.carrinho-fotos.anim-sai { animation: card-encolhe .4s ease-in both; }
+.carrinho-fotos.anim-sai .carrinho-combo { animation: combo-sai .35s ease-in both; }
+
+@media (max-width: 575.98px) {
+  .carrinho-fotos { --foto: 3.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carrinho-fotos.anim-entra,
+  .carrinho-fotos.anim-sai,
+  .carrinho-fotos.anim-entra .carrinho-combo,
+  .carrinho-fotos.anim-sai .carrinho-combo { animation: none; }
+}
+
+/* ---------- Observações do pedido ---------- */
+#observacao {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+/* caixinha de destaque onde o pedido é exibido (loja, entregador, cliente) */
+.obs-pedido {
+  margin: .5rem 0;
+  padding: .5rem .75rem;
+  border-left: 3px solid var(--vermelho-claro);
+  border-radius: .5rem;
+  background: rgba(255, 40, 40, .12);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Campos de texto no estilo "vidro" ---------- */
+.painel-vidro .form-control,
+.painel-vidro .form-select {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: .9rem;
+  padding: .7rem .9rem;
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+
+.painel-vidro .form-control::placeholder {
+  color: rgba(255, 255, 255, .45);
+}
+
+.painel-vidro .form-control:hover {
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .35);
+}
+
+.painel-vidro .form-control:focus,
+.painel-vidro .form-select:focus {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .12);
+  border-color: var(--vermelho-claro);
+  box-shadow: 0 0 0 .25rem rgba(255, 40, 40, .22);
+  outline: 0;
+}
+
+/* o autopreenchimento do navegador também pinta de escuro/azul: neutraliza */
+.painel-vidro .form-control:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 0 0 100px rgba(60, 20, 20, .9) inset;
+}
+
+
+/* ---------- Ajuste dos ícones Phosphor ---------- */
+.ph {
+  vertical-align: -0.125em;   /* alinha com o texto, como os ícones antigos */
+}
+
+/* separador entre as informações do hero */
+.hero-infos span + span::before {
+  content: "•";
+  margin-right: 1rem;          /* espaço entre o ponto e o texto */
+  color: var(--vermelho-claro);
+}
+
+/* logo que "se retrai" de BigBite para BB */
+.marca-nome {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.marca-ext {
+  display: inline-block;
+  max-width: 1.6em;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  animation: marca-retrai .8s cubic-bezier(.65, 0, .35, 1) 5s forwards;
+}
+
+@keyframes marca-retrai {
+  from { max-width: 1.6em; opacity: 1; }
+  to   { max-width: 0;     opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marca-ext { animation: none; }
+}
+
+/* "Lanches" entra ao mesmo tempo em que o nome encolhe */
+.marca-sub {
+  display: inline-block;
+  max-width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  vertical-align: bottom;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: .6em;
+  letter-spacing: .02em;
+  color: rgba(255, 255, 255, .85);
+  animation: marca-sub-entra .8s cubic-bezier(.65, 0, .35, 1) 5s forwards;
+}
+
+@keyframes marca-sub-entra {
+  from { max-width: 0;   margin-left: 0;    opacity: 0; }
+  to   { max-width: 6em; margin-left: .45em; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marca-sub { display: none; }
+}
+/* campo de seleção (select) no estilo vidro */
+.form-select {
+  font-family: inherit;
+  color: #fff;
+  background-color: rgba(255, 255, 255, .08);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right .85rem center;
+  background-size: 14px 10px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 999px;
+  padding-left: 1rem;
+  padding-right: 2.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+
+.form-select:hover {
+  background-color: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .4);
+}
+
+.form-select:focus {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .14);
+  border-color: var(--vermelho-claro);
+  box-shadow: 0 0 0 .25rem rgba(255, 40, 40, .22);
+  outline: 0;
+}
+
+.form-select option {
+  color: #fff;
+  background-color: #2b1111;
+}
+
+.form-select option:checked {
+  background-color: #7a1212;
 }

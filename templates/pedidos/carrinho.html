@@ -1,55 +1,82 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block titulo %}Carrinho - BigBite{% endblock %}
 
 {% block conteudo %}
-<h1 class="mb-4"><i class="bi bi-cart3 text-vermelho"></i> Seu carrinho</h1>
+<h1 class="mb-4"> Seu carrinho</h1>
 
 {% if itens %}
 <div class="row g-4">
 
   <div class="col-lg-8">
     {% for item in itens %}
-      <div class="card card-produto mb-3">
+      <div class="card card-produto mb-3" data-item="{{ item.produto.id }}{% if item.trio %}:trio{% endif %}">
         <div class="card-body">
-          <div class="d-flex align-items-center flex-wrap gap-3">
+          <div class="item-carrinho">
 
-            <div class="item-thumb">
-              {% if item.produto.imagem %}
-                <img src="{{ item.produto.imagem.url }}" alt="{{ item.produto.nome }}">
-              {% else %}
-                <i class="bi bi-egg-fried"></i>
+            <div class="carrinho-fotos{% if item.trio %} com-trio{% endif %}">
+              <div class="item-thumb carrinho-lanche">
+                {% if item.produto.imagem %}
+                  <img src="{{ item.produto.imagem.url }}" alt="{{ item.produto.nome }}">
+                {% else %}
+                  <i class="ph ph-hamburger"></i>
+                {% endif %}
+              </div>
+              {% if item.trio %}
+                <img class="carrinho-combo" src="{% static 'img/combo-trio.webp' %}" alt="Batata e refri lata">
               {% endif %}
             </div>
 
-            <div class="flex-grow-1">
-              <h5 class="mb-0">{{ item.produto.nome }}</h5>
-              <span class="text-muted small">R$ {{ item.produto.preco }} cada</span>
+            <div class="item-info">
+              <h5 class="mb-0">
+                {{ item.produto.nome }}
+                {% if item.trio %}<span class="selo-trio">Trio</span>{% endif %}
+              </h5>
+              <span class="text-muted small">
+                R$ {{ item.preco_unitario }} cada{% if item.trio %} · com batata e refri lata{% endif %}
+              </span>
+
+              {% if item.produto.permite_trio %}
+                <form method="post" action="{% url 'carrinho_trio' item.produto.id %}" class="mt-1" data-trio-form>
+                  {% csrf_token %}
+                  {% if item.trio %}
+                    <input type="hidden" name="para" value="simples">
+                    <button type="submit" class="btn-link-trio">Tirar o trio de 1 unidade</button>
+                  {% else %}
+                    <input type="hidden" name="para" value="trio">
+                    <button type="submit" class="btn-link-trio"><i class="ph ph-plus-circle"></i> Fazer trio (+R$ {{ adicional_trio }}) com batata e refri lata</button>
+                  {% endif %}
+                </form>
+              {% endif %}
             </div>
 
             <div class="seletor-qtd">
               <form method="post" action="{% url 'carrinho_atualizar' item.produto.id %}">
                 {% csrf_token %}
+                {% if item.trio %}<input type="hidden" name="trio" value="1">{% endif %}
                 <input type="hidden" name="quantidade" value="{{ item.quantidade|add:'-1' }}">
                 <button type="submit" class="btn-qtd" aria-label="Diminuir" {% if item.quantidade <= 1 %}disabled{% endif %}>
-                  <i class="bi bi-dash"></i>
+                  <i class="ph ph-minus"></i>
                 </button>
               </form>
               <span class="qtd-valor">{{ item.quantidade }}</span>
               <form method="post" action="{% url 'carrinho_atualizar' item.produto.id %}">
                 {% csrf_token %}
+                {% if item.trio %}<input type="hidden" name="trio" value="1">{% endif %}
                 <input type="hidden" name="quantidade" value="{{ item.quantidade|add:'1' }}">
                 <button type="submit" class="btn-qtd" aria-label="Aumentar" {% if item.quantidade >= 99 %}disabled{% endif %}>
-                  <i class="bi bi-plus"></i>
+                  <i class="ph ph-plus"></i>
                 </button>
               </form>
             </div>
 
             <strong class="preco-produto item-subtotal">R$ {{ item.subtotal }}</strong>
 
-            <form method="post" action="{% url 'carrinho_remover' item.produto.id %}">
+            <form method="post" action="{% url 'carrinho_remover' item.produto.id %}" class="item-remover">
               {% csrf_token %}
+              {% if item.trio %}<input type="hidden" name="trio" value="1">{% endif %}
               <button type="submit" class="btn-remover" aria-label="Remover {{ item.produto.nome }}">
-                <i class="bi bi-trash3"></i>
+                <i class="ph ph-trash"></i>
               </button>
             </form>
 
@@ -76,13 +103,23 @@
       </div>
 
       {% if fidelidade %}
-        <div class="alert alert-success small mt-3 mb-0"><i class="bi bi-gift"></i> É o seu 5º pedido: desconto de 20% aplicado!</div>
+        <div class="alert alert-success small mt-3 mb-0"><i class="ph ph-gift"></i> É o seu 5º pedido: desconto de 20% aplicado!</div>
       {% else %}
-        <p class="text-muted small mt-3 mb-0"><i class="bi bi-gift text-vermelho"></i> Pedido {{ posicao_fidelidade }} de 5. O 5º sai com 20% de desconto.</p>
+        <p class="text-muted small mt-3 mb-0"> Pedido {{ posicao_fidelidade }} de 5. O 5º sai com 20% de desconto.</p>
       {% endif %}
 
-      <a href="{% url 'finalizar' %}" class="btn btn-vermelho w-100 py-2 mt-3">Finalizar pedido</a>
-      <a href="{% url 'cardapio' %}" class="btn btn-outline-light w-100 rounded-pill mt-2">Continuar pedindo</a>
+      <form method="post" action="{% url 'carrinho_observacao' %}" id="form-obs">
+        {% csrf_token %}
+        <label for="observacao" class="form-label fw-semibold small mt-3 mb-1">
+          <i class="ph ph-chat-text text-vermelho"></i> Observações do pedido
+        </label>
+        <textarea name="observacao" id="observacao" class="form-control" rows="3" maxlength="300"
+                  placeholder="Ex.: sem cebola, carne bem passada, caprichar no molho...">{{ observacao }}</textarea>
+        <div class="text-muted small text-end mt-1"><span id="obs-contador">0</span>/300</div>
+
+        <button type="submit" name="destino" value="finalizar" class="btn btn-vermelho w-100 py-2 mt-2">Finalizar pedido</button>
+        <button type="submit" name="destino" value="cardapio" class="btn btn-outline-light w-100 rounded-pill mt-2">Continuar pedindo</button>
+      </form>
     </div>
   </div>
 
@@ -90,10 +127,81 @@
 
 {% else %}
   <div class="painel-vidro text-center py-5">
-    <i class="bi bi-cart-x display-3 text-vermelho"></i>
+    <i class="ph ph-shopping-cart-simple display-3 text-vermelho"></i>
     <h4 class="mt-3">Seu carrinho está vazio</h4>
     <p class="text-muted">Que tal escolher um lanche?</p>
     <a href="{% url 'cardapio' %}" class="btn btn-vermelho px-4">Ver cardápio</a>
   </div>
 {% endif %}
+
+<script>
+/* Animação do combo: o prato novo "rola" para dentro, como no vídeo de referência */
+(function () {
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Depois que a página recarrega, anima só o combo que acabou de entrar.
+  try {
+    var chave = sessionStorage.getItem('bb-trio-anim');
+    if (chave) {
+      sessionStorage.removeItem('bb-trio-anim');
+      var alvo = document.querySelector('[data-item="' + chave + '"] .carrinho-fotos');
+      if (alvo && !reduz) alvo.classList.add('anim-entra');
+    }
+  } catch (e) {}
+
+  document.querySelectorAll('form[data-trio-form]').forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      if (reduz || form.dataset.enviando) return;
+      var para = form.querySelector('[name=para]').value;
+
+      if (para === 'trio') {
+        // vira trio: guarda qual item deve animar quando a página recarregar
+        var id = form.closest('[data-item]').dataset.item.split(':')[0];
+        try { sessionStorage.setItem('bb-trio-anim', id + ':trio'); } catch (e) {}
+        return;
+      }
+
+      // tira o trio: o card encolhe, o combo sai rolando e só então envia o formulário
+      var fotos = form.closest('[data-item]').querySelector('.carrinho-fotos');
+      if (!fotos) return;
+      ev.preventDefault();
+      form.dataset.enviando = '1';
+      fotos.classList.add('anim-sai');
+      setTimeout(function () { form.submit(); }, 450);
+    });
+  });
+})();
+</script>
+
+<script>
+/* Observação: contador de letras e rascunho (não perde o texto ao mexer na quantidade ou no trio) */
+(function () {
+  var campo = document.getElementById('observacao');
+  var form = document.getElementById('form-obs');
+  if (!campo) return;
+  var contador = document.getElementById('obs-contador');
+  var CHAVE = 'bb-observacao';
+
+  function atualizar() { contador.textContent = campo.value.length; }
+
+  try {
+    var rascunho = sessionStorage.getItem(CHAVE);
+    if (!campo.value && rascunho) campo.value = rascunho;
+  } catch (e) {}
+  atualizar();
+
+  campo.addEventListener('input', function () {
+    atualizar();
+    try {
+      if (campo.value) sessionStorage.setItem(CHAVE, campo.value);
+      else sessionStorage.removeItem(CHAVE);
+    } catch (e) {}
+  });
+
+  // ao enviar, o servidor guarda o texto; o rascunho do navegador não é mais necessário
+  form.addEventListener('submit', function () {
+    try { sessionStorage.removeItem(CHAVE); } catch (e) {}
+  });
+})();
+</script>
 {% endblock %}
